@@ -5,7 +5,7 @@ HomeController.$inject = ['$scope','$q','$http','$cookieStore','$location','$win
 function HomeController($scope,$q,$http,$cookieStore,$location,$window,UserService,$filter,$interval,$routeParams,$uibModal,$rootScope) {
     var red="#ae0001";
     var green="#03c72d";
-    const restAPIServerName = 'http://159.203.112.185:8222'; //'http://ec2-54-191-51-162.us-west-2.compute.amazonaws.com:8222'
+    const restAPIServerName = 'http://eai-node:3000'; 
     $scope.user=$cookieStore.get("user");
     $scope.divisions=[];
     $scope.FixedIncome={anomaly:false,issueTypes:[],issue:'null'};
