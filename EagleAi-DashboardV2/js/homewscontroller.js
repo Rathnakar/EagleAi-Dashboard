@@ -49,8 +49,7 @@ function HomewsController($scope,$q,$http,$cookieStore,$location,$window,UserSer
 	const symbolIssueSocket = io.connect('http://159.203.112.185:7878/symbol_issuetype_pred_vs_obs');
 	const traderIssueSocket = io.connect('http://159.203.112.185:7878/trader_isseutype_pred_vs_obs');
 	const omprocessIssueSocket = io.connect('http://159.203.112.185:7878/omprocess_issuetype_pred_vs_obs');
-	$rootScope.restAPIServerName = 'http://ec2-54-191-51-162.us-west-2.compute.amazonaws.com:8222'
-	$rootScope.restAPIServerName = 'http://159.203.112.185:6222'; 
+	$rootScope.restAPIServerName = 'http://eai-node:3000'; 
 	const restAPIServerName = $rootScope.restAPIServerName;
 	$rootScope.isPopOpened=false;
 

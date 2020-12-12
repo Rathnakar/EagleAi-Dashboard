@@ -4,7 +4,7 @@ SettingsController.$inject = ['$scope','$q','$http','$cookieStore','$location','
 
 function SettingsController($scope,$q,$http,$cookieStore,$location,$window,UserService,$filter,$interval,$routeParams,$uibModal,$rootScope) {
     $scope.user=$cookieStore.get("user");
-	$rootScope.restAPIServerName =  'http://159.203.112.185:6222';
+	$rootScope.restAPIServerName =  'http://eai-node:3000';
 	const restAPIServerName = $rootScope.restAPIServerName;
 	$scope.models=[];
 	$rootScope.inputs=[];
