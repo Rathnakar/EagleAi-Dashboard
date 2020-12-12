@@ -1,0 +1,471 @@
+<div id="wrapper" ng-app="app" style="height: 10%">
+	<!-- Navigation -->
+	<div ng-include="'views/header.html'"></div>
+</div>
+
+<div class="col-md-12 mart5 marb5 tradbtns padlr10" style="height: 5%">
+	<div class="col-md-2 tradbtn" ng-repeat="feature in modelfeatures"
+		ng-model="modelfeatures"
+		ng-click="getScatterdata(feature.modelfeature,$index+1,issueType1)"
+		id="dibtn{{$index+1}}">{{feature.modelfeature}}</div>
+
+	<div class="col-md-2 tradbtn">Issue Type</div>
+</div>
+
+<div class="col-md-12 mart3 tradbtns padlr10"
+	style="width: 100%; height: 4%">
+	<div class="form-group col-md-2 selectbtn">
+		<select class="form-control drpdwn" ng-model="get_divisions"
+			ng-change="updateScatter(get_divisions,get_divisions,'FixedIncome_division_pred_vs_actual_GROSS_NOTIONALVALUE');selectedDivisionData(get_divisions);">
+			<option value="">--Select--</option>
+			<option ng-repeat="option in divisionsList"
+				value="{{option.get_divisions}}">{{option.get_divisions}}</option>
+		</select>
+	</div>
+
+	<div class="form-group col-md-2 selectbtn">
+		<select class="form-control drpdwn" ng-model="fdcrange"
+			ng-change="updateScatter(get_divisions,fdcrange,'FixedIncome_division_pred_vs_actual_GROSS_NOTIONALVALUE')">
+			<option value="">--Select--</option>
+			<option ng-repeat="option1 in dropdowndata.DESK"
+				value="{{option1.desk}}">{{option1.desk}}</option>
+		</select>
+	</div>
+
+	<div class="form-group col-md-2 selectbtn">
+		<select class="form-control drpdwn" ng-model="fdcselect"
+			ng-change="updateScatter('FixedIncome',fdcselect,'FixedIncome_division_pred_vs_actual_GROSS_NOTIONALVALUE')">
+			<option value="">--Select--</option>
+			<option ng-repeat="option2 in dropdowndata.CLIENT"
+				value="{{option2.clientid}}">{{option2.clientid}}</option>
+		</select>
+	</div>
+	<div class="form-group col-md-2 selectbtn">
+		<select class="form-control drpdwn" ng-model="fdsymbolselect"
+			ng-change="updateScatter('FixedIncome',fdsymbolselect,'FixedIncome_division_pred_vs_actual_GROSS_NOTIONALVALUE')">
+			<option value="">--Select--</option>
+			<option ng-repeat="option3 in dropdowndata.SYMBOL"
+				value="{{option3.symbol}}">{{option3.symbol}}</option>
+		</select>
+	</div>
+	<div class="form-group col-md-2 selectbtn">
+		<select class="form-control drpdwn" ng-model="fdtraderselect"
+			ng-model="fdtraderselect"
+			ng-change="updateScatter('FixedIncome',fdtraderselect,'FixedIncome_division_pred_vs_actual_GROSS_NOTIONALVALUE')">
+			<option value="">--Select--</option>
+			<option ng-repeat="option4 in dropdowndata.TRADER"
+				value="{{option4.traderid}}">{{option4.traderid}}</option>
+		</select>
+	</div>
+	<div class="form-group col-md-2 selectbtn">
+		<select class="form-control drpdwn" ng-model="fdopselect"
+			ng-model="fdopselect"
+			ng-change="updateScatter('FixedIncome',fdopselect,'FixedIncome_division_pred_vs_actual_GROSS_NOTIONALVALUE')">
+			<option value="">--Select--</option>
+			<option ng-repeat="option5 in dropdowndata.OMPROCESS"
+				value="{{option5.omprocessid}}">{{option5.omprocessid}}</option>
+		</select>
+	</div>
+	<div class="form-group col-md-2 selectbtn">
+		<select class="form-control drpdwn" ng-model="FixedIncome.issue"
+			ng-change="updateChart(FixedIncome.issue,'FixedIncome')">
+			<option class="select-dropdown" value='null' ng-selected=''>Issue
+				Type</option>
+			<option class="select-dropdown"
+				ng-repeat="issue in dropdowndata.issueTypes"
+				value="{{issue.issuetypes}}">{{issue.issuetypes}}</option>
+		</select>
+	</div>
+</div>
+
+<div class="col-md-12" style="height: 80%">
+	<div class="col-md-9" style="height: 100%">
+		<div class="graph-area" style="height: 80%">
+			<div ng-show="scatterVisible" style="height: 100%">
+				<table class="chartstable col-md-12" style="height: 100%">
+					<tr width="100%" height="100%">
+						<td class="col-md-12" align="center"><span class="graphtitle"
+							style="text-align: center">Gross NV</span>
+							<div class="img-responsive "
+								id="FixedIncome_division_pred_vs_actual_GROSS_NOTIONALVALUE"></div>
+						</td>
+						<td class="col-md-12" align="center"><span class="graphtitle"
+							style="text-align: center">Net NV</span>
+							<div class="img-responsive "
+								id="FixedIncome_division_pred_vs_actual_NET_NOTIONALVALUE"></div>
+						</td>
+					</tr>
+				</table>
+			</div>
+			<div ng-show="rangeVisible" style="height: 100%">
+				<div class="modal-header" style="height: 8%">
+					<div class="rmc-12 headerbg ">
+						<table style="width: 100%">
+							<tr>
+								<td width="33%">
+									<button type="button" class="btn pull-left streambtn col-md-4">{{stype}}</button>
+									<button type="button" class="btn pull-left streambtn col-md-4">{{name}}</button>
+								</td>
+								<td width="33%" align="right">
+									<button type="button" class="btn btn-primary"
+										data-toggle="modal" data-target="#myModal" style="height: 90%">Top
+										Orders</button>
+								</td>
+
+								<td width="5%" align="right">
+									<button class="btn btn-primary" style="height: 90%"
+										ng-click="back()">back</button>
+								</td>
+							</tr>
+						</table>
+					</div>
+				</div>
+				<div class="modal-body" style="height: 92%">
+					<div class="rmc-12 marb10" id="container" style="height: 50%">
+						<table style="width: 100%" class="chartstable">
+							<tr>
+								<td width="33%">
+									<table style="width: 100%">
+										<tr>
+											<td width="100%">
+												<div>
+													<span class="graphtitle  col-md-5">Gross NV</span> <span
+														class="comments  col-md-7">{{Individual.gross_nv}}</span>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<td width="100%">
+												<!-- <div class="img-responsive" id="pie_chart1"></div> -->
+												<div class="img-responsive" id="gross_nv"></div>
+											</td>
+										</tr>
+									</table>
+								</td>
+								<td width="33%">
+									<table style="width: 100%">
+										<tr>
+											<td width="100%">
+												<div>
+													<span class="graphtitle  col-md-5">Net NV</span> <span
+														class="comments  col-md-7">{{Individual.net_nv}}</span>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<td width="100%">
+												<div class="img-responsive" id="net_nv"></div>
+											</td>
+										</tr>
+									</table>
+								</td>
+								<td width="33%">
+									<table style="width: 100%">
+										<tr>
+											<td width="100%">
+												<div>
+													<span class="graphtitle  col-md-5">Num Orders</span> <span
+														class="comments  col-md-7">{{Individual.num_orders}}</span>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<td width="100%">
+												<div class="img-responsive" id="num_orders"></div>
+											</td>
+										</tr>
+									</table>
+								</td>
+							</tr>
+						</table>
+					</div>
+
+
+					<div class="rmc-12" id="container" style="height: 50%">
+						<div class="col-md-offset-2 col-md-10">
+							<div class="btn-group" ng-if="participation.length>0">
+								<label class="btn btn-primary" ng-model="radioModel"
+									uib-btn-radio="'Gross Notionalvalue'"
+									ng-click="updatePie('Gross Notionalvalue')">Gross
+									Notionalvalue</label> <label class="btn btn-primary"
+									ng-model="radioModel" uib-btn-radio="'Net Notionalvalue'"
+									ng-click="updatePie('Net Notionalvalue')">Net
+									Notionalvalue</label> <label class="btn btn-primary"
+									ng-model="radioModel" uib-btn-radio="'Num Orders'"
+									ng-click="updatePie('Num Orders')">Num Orders</label> <label
+									class="pie-times">
+									<div>Start: {{start}}</div>
+									<div>End: {{end}}</div>
+								</label>
+							</div>
+						</div>
+						<div class="mart10">
+							<table style="width: 100%" class="chartstable">
+								<tr>
+									<td width="20%">
+										<div class="img-responsive" id="pie1"></div>
+									</td>
+									<td width="20%%">
+										<div class="img-responsive" id="pie2"></div>
+									</td>
+									<td width="20%%">
+										<div class="img-responsive" id="pie3"></div>
+									</td>
+									<td width="20%">
+										<div class="img-responsive" id="pie4"></div>
+									</td>
+									<td width="20%">
+										<div class="img-responsive" id="pie5"></div>
+									</td>
+								</tr>
+								<tr>
+
+
+								</tr>
+
+							</table>
+						</div>
+					</div>
+
+
+					<div class="modal fade" id="myModal" role="dialog">
+						<div class="modal-dialog">
+
+							<!-- Modal content-->
+							<div class="modal-content">
+								<div class="modal-header1">
+									<button type="button" class="close" data-dismiss="modal">&times;</button>
+									<h4 class="modal-title top-orders">Top Orders</h4>
+								</div>
+								<div class="modal-body1">
+									<div class="rmc-12 marb10" id="container"
+										ng-if="topOrders.length>0">
+										<!-- <span class="graphtitle  col-md-5"></span> -->
+										<table
+											class="table-responsive table-bordered toporders scrollbar"
+											width="100%">
+											<thead>
+												<tr>
+													<th>Currency</th>
+													<th>Notionalvalue</th>
+													<th>Division</th>
+													<th>Clientid</th>
+													<th>Symbol</th>
+													<th>Qty</th>
+													<th>Price</th>
+													<th>Transacttime</th>
+													<th>Orderid</th>
+													<th>Versionid</th>
+													<th>Appl</th>
+													<th>Subappl</th>
+													<th>Omprocessid</th>
+													<th>Desk</th>
+													<th>Salesownerid</th>
+													<th>Traderid</th>
+													<th>Clienttraderid</th>
+													<th>Accountid</th>
+													<th>Issuetype</th>
+													<th>Exchange</th>
+													<th>Execbroker</th>
+													<th>Clientorderid</th>
+													<th>Parentorderid</th>
+													<th>Ordstatus</th>
+													<th>Tradedate</th>
+													<th>Timeinforce</th>
+													<th>Capacity</th>
+													<th>Instruction</th>
+													<th>Side</th>
+													<th>Locatereqd</th>
+													<th>Locateid</th>
+													<th>Ordtype</th>
+													<th>Leavesqty</th>
+													<th>Fillqty</th>
+													<th>Avg.price</th>
+													<th>Putorcall</th>
+													<th>Strikeprice</th>
+													<th>Openclose</th>
+													<th>Delta</th>
+													<th>Contractmultiplier</th>
+													<th>Quoteid</th>
+													<th>Adv</th>
+													<th>Ref.Price</th>
+													<th>Priceaway</th>
+													<th>Liquidity</th>
+													<th>Arrivalprice</th>
+													<th>Loc</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr ng-repeat="order in topOrders">
+													<td>{{order.currency}}</td>
+													<td>{{order.notionalvalue}}</td>
+													<td>{{order.division}}</td>
+													<td>{{order.clientid}}</td>
+													<td>{{order.symbol}}</td>
+													<td>{{order.qty}}</td>
+													<td>{{order.price}}</td>
+													<td>{{order.transacttime}}</td>
+													<td>{{order.orderid}}</td>
+													<td>{{order.versionid}}</td>
+													<td>{{order.appl}}</td>
+													<td>{{order.subappl}}</td>
+													<td>{{order.omprocessid}}</td>
+													<td>{{order.desk}}</td>
+													<td>{{order.salesownerid}}</td>
+													<td>{{order.traderid}}</td>
+													<td>{{order.clienttraderid}}</td>
+													<td>{{order.accountid}}</td>
+													<td>{{order.issuetype}}</td>
+													<td>{{order.exchange}}</td>
+													<td>{{order.execbroker}}</td>
+													<td>{{order.clientorderid}}</td>
+													<td>{{order.parentorderid}}</td>
+													<td>{{order.ordstatus}}</td>
+													<td>{{order.tradedate}}</td>
+													<td>{{order.timeinforce}}</td>
+													<td>{{order.capacity}}</td>
+													<td>{{order.instruction}}</td>
+													<td>{{order.side}}</td>
+													<td>{{order.locatereqd}}</td>
+													<td>{{order.locateid}}</td>
+													<td>{{order.ordtype}}</td>
+													<td>{{order.leavesqty}}</td>
+													<td>{{order.fillqty}}</td>
+													<td>{{order.avgprice}}</td>
+													<td>{{order.putorcall}}</td>
+													<td>{{order.strikeprice}}</td>
+													<td>{{order.openclose}}</td>
+													<td>{{order.delta}}</td>
+													<td>{{order.contractmultiplier}}</td>
+													<td>{{order.quoteid}}</td>
+													<td>{{order.adv}}</td>
+													<td>{{order.ref_price}}</td>
+													<td>{{order.priceaway}}</td>
+													<td>{{order.liquidity}}</td>
+													<td>{{order.arrivalprice}}</td>
+													<td>{{order.loc}}</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+
+						</div>
+					</div>
+
+
+
+				</div>
+
+			</div>
+
+		</div>
+		<div class="col-md-12 mart5 padl10" style="height: 10%">
+			<div class="col-md-2 width2" style="height: 100%">
+				<p class="graph-values gval1 text-center col-md-6" id="type"
+					style="width: 49%; height: 100%">DIVISION</p>
+				<p class="value val1 col-md-6 text-center" id="name"
+					style="height: 100%">EQDESK1</p>
+			</div>
+			<div class="col-md-2 width2" style="height: 100%">
+				<p class="graph-values gval2 text-center col-md-6" id="issuetype"
+					style="height: 100%">RiskCalc</p>
+				<p class="value col-md-6 val2 text-center" id="risk"
+					style="height: 100%">$1724.00</p>
+			</div>
+			<div class="col-md-2 width2" style="height: 100%">
+				<p class="graph-values gval3 text-center col-md-6"
+					style="height: 100%">Prediction</p>
+				<p class="value col-md-6 val3 text-center" id="range"
+					style="height: 100%">$1142.00</p>
+			</div>
+			<div class="col-md-2 width2" style="height: 100%">
+				<p class="graph-values gval4 text-center col-md-6"
+					style="height: 100%">Actual</p>
+				<p class="value col-md-6 val4 text-center" id="actual"
+					style="height: 100%">$452.00</p>
+			</div>
+			<div class="col-md-2 width2" style="height: 100%">
+				<p class="graph-values gval5 text-center col-md-6"
+					style="height: 100%">Z Value</p>
+				<p class="value col-md-6 val5 text-center" id="zval"
+					style="height: 100%">$452.00</p>
+			</div>
+		</div>
+		<!-- <div class="col-md-12">
+	  <div class="col-md-3 btn analysbtns"> Trend Analysis
+	  </div>
+	<select class="col-md-3 btn analysbtns">
+	  <option value="GNV">GNV</option>
+	  <option value="saab">NNV</option>
+	  <option value="opel">NOO</option>
+	  <option value="audi">CUR</option>
+	</select>
+	  <div class="col-md-3 btn analysbtns" style="width: 10%;"> SEARCH
+	  </div>
+    </div>
+  -->
+		<div class="col-md-12 mart5 padlr10" style="height: 10%">
+			<div class="anom2 col-md-2">ANOMALIES: 2</div>
+			<div class="anom1 col-md-10">Abnormal Gross NV for Client: ABC
+			</div>
+		</div>
+	</div>
+	<div class="col-md-3" style="height: 100%">
+		<div class="rightcol" style="height: 100%">
+			<p class="text-center headcolor" style="height: 7%">EAGLEYE
+				REALTIME</p>
+			<ul class="rtalerts" style="height: 60%">
+				<li style="color: #ff2400"><span class="indusname">DOW
+						Industries</span><span>25316.75 -625.62[-2.41%]</span></li>
+				<li><span class="indusname">S&P 500</span><span>2810.12
+						71.28[2.47%]</span></li>
+				<li><span class="indusname">NASDAQ COMPOSITE</span><span>7566.66
+						261.28[3.30%]</span></li>
+				<li style="color: #ff2400"><span class="indusname">RUSSEL
+						2000</span><span>1525.15 -47.84[-3.04%]</span></li>
+				<li><span class="indusname">DOW Industries</span><span>25316.75
+						-625.62[-2.41%]</span></li>
+				<li style="color: #ff2400"><span class="indusname">DOW
+						Industries</span><span>25316.75 -625.62[-2.41%]</span></li>
+
+			</ul>
+
+			<div class="col-md-12 mart5" style="height: 7%">
+				<div class="timezone" style="height: 100%">EAGLEYE 12:14 PM |
+					Eastern</div>
+			</div>
+			<div class="col-md-12 mart5" style="height: 28%">
+				<div class="anomalerts" style="height: 100%">
+					<p style="height: 15%">FIXED INCOME</p>
+
+					<ul class="col-md-12" style="height: 85%">
+						<li><span style="border-left: 5px solid green;"
+							class="notionalvalue text-center col-md-6"> GNV</span> <span
+							class="notionalvalue col-md-6 text-center marl3">$525.00</span></li>
+						<li><span style="border-left: 5px solid red;"
+							class="notionalvalue text-center col-md-6"> NNV</span> <span
+							class="notionalvalue col-md-6 text-center marl3">$1724.00</span>
+						</li>
+						<li><span style="border-left: 5px solid green;"
+							class="notionalvalue text-center col-md-6"> NOO</span> <span
+							class="notionalvalue col-md-6 text-center marl3">$1142.00</span>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+
+</div>
+
+<script>
+$('.dropdown-menu a').on('click', function(){    
+    $(this).parent().parent().prev().html($(this).html() + '<span class="caret"></span>');    
+})
+</script>
+<!-- Custom Theme JavaScript -->
+<script src="js/sb-admin-2.js"></script>

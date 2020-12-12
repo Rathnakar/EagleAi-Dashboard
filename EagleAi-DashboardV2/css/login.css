@@ -1,0 +1,235 @@
+body {
+	font-family: 'Roboto', sans-serif;
+	background-color: #fff;
+	height: 100%;
+}
+
+h1 {
+	font-size: 3.2em;
+	font-weight: 300;
+	text-transform: capitalize;
+	color: #fff;
+	text-shadow: 1px 1px 1px #000;
+	padding: 1.3em 1vw;
+	text-align: center;
+	font-family: 'Roboto', sans-serif
+}
+
+.eagleye {
+	padding: 0 0 0 0;
+	margin: 0 0 0 0;
+}
+
+.eals-login form {
+	position: relative;
+	max-width: 500px;
+	margin: 0 0 0 0;
+	padding: 0 0 0 0;
+	border: none;
+	box-sizing: border-box;
+	display: flex;
+	display: -webkit-flex;
+	flex-wrap: wrap;
+	/*  -webkit-box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.3);
+    -moz-box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.3);
+    box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.3);*/
+}
+
+.eals-login label {
+	font-size: 16px;
+	color: #333333;
+	float: left;
+	margin-bottom: 15px;
+	text-transform: capitalize;
+}
+
+.agile-field-txt {
+	flex-basis: 100%;
+	-webkit-flex-basis: 100%;
+	margin-bottom: 1.5em;
+	clear: both;
+}
+
+.eals-login label i {
+	font-size: 1.1em;
+	margin-right: 3px;
+	color: #363af4;
+}
+
+.eals-login input[type="text"], .eals-login input[type="password"] {
+	width: 100%;
+	color: #333333;
+	outline: none;
+	font-size: 13px;
+	/* line-height: 25px; */
+	padding: 9px;
+	box-sizing: border-box;
+	border: none;
+	border: 1px solid #aaa;
+	-webkit-appearance: none;
+	font-family: 'Roboto', sans-serif;
+	background: transparent;
+}
+
+label.check {
+	float: none;
+	color: #aaa;
+	font-size: 15px;
+	cursor: pointer;
+}
+
+.agile_label {
+	float: left;
+	margin: 20px 0 0;
+}
+
+.agile-right {
+	float: right;
+	margin: 20px 0 0;
+}
+
+.agile-right a {
+	font-size: 15px;
+	color: #aaa;
+	margin-bottom: 10px;
+	text-transform: capitalize;
+}
+
+.agile-right a:hover {
+	color: #0173c7;
+	text-decoration: none;
+}
+
+::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+	color: #aaa;
+}
+
+::-moz-placeholder { /* Firefox 19+ */
+	color: #aaa;
+}
+
+:-ms-input-placeholder { /* IE 10+ */
+	color: #aaa;
+}
+
+:-moz-placeholder { /* Firefox 18- */
+	color: #aaa;
+}
+
+.eals-login input[type=submit] {
+	color: #fff;
+	font-weight: 600;
+	width: 22%;
+	/*margin: auto;*/
+	padding: 0.7em 0;
+	margin-top: 1em;
+	font-size: .9em;
+	letter-spacing: 1pt;
+	cursor: pointer;
+	border: none;
+	outline: none;
+	background-color: #0173c7;
+	color: #fff;
+	border: 1px solid #0173c7;
+	font-family: 'Roboto', sans-serif transition : 0.5s all ease;
+	-webkit-transition: 0.5s all ease;
+	-moz-transition: 0.5s all ease;
+	-o-transition: 0.5s all ease;
+	-ms-transition: 0.5s all ease;
+}
+
+.eals-login input[type=submit]:hover {
+	border: 1px solid #0173c7;
+	color: #0173c7;
+	background: #ffffff;
+}
+
+.error {
+	color: #f7931b;
+	font-size: 16px;
+}
+
+.eyeinfo {
+	background-color: #f89a1e;
+	padding: 30px;
+	color: #fff;
+	height: 130px;
+}
+
+.eyeimg {
+	/*background:url('../img/bg.jpg'); 
+	background-repeat:no-repeat;
+	background-position: center;
+	background-size:cover;	*/
+	
+}
+
+.mart-90 {
+	margin-top: 90px;
+}
+
+.mart-100 {
+	margin-top: 100px;
+}
+
+.text-big {
+	font-size: 15px;
+}
+
+.marl-30 {
+	margin-left: 30px;
+}
+
+.marl-90 {
+	margin-left: 90px;
+}
+
+.mart-50 {
+	margin-top: 50px !important;
+}
+
+.marr-55 {
+	margin-right: -55px !important;
+}
+
+.pad-30 {
+	padding: 30px !important;
+}
+
+.padl-60 {
+	padding-left: 60px !important;
+}
+
+.padl-90 {
+	padding-left: 90px !important;
+}
+
+.padt-30 {
+	padding-top: 30px !important;
+}
+
+.loginpage::after {
+	clear: both;
+}
+
+.loginpage::before, .loginpage::after {
+	display: table;
+	content: " ";
+}
+
+.loginpage {
+	/*  width:1280px;*/
+	
+}
+
+.img-width {
+	width: 58.33333333%;
+	float: left;
+}
+
+.loginpage {
+	/* padding-right: 15px;
+    padding-left: 15px;*/
+	margin-right: auto;
+	margin-left: auto;
+}

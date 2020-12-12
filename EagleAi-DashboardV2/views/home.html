@@ -1,0 +1,260 @@
+<div id="wrapper" ng-app="app">
+	<!-- Navigation -->
+	<div ng-include="'views/header.html'"></div>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="rmc-6 pad50">
+				<button type="button" class="btn   streambtn">Fixed Income
+				</button>
+				<div class="btn-group marl20">
+					<select class="form-control dropdown-toggle issuebtn select-hide"
+						ng-model="FixedIncome.issue"
+						ng-click="getDivisionIssues('FixedIncome')"
+						ng-change="updateChart(FixedIncome.issue,'FixedIncome')">
+						<option class="select-dropdown" value='null' ng-selected=''>Issue
+							Type</option>
+						<option class="select-dropdown"
+							ng-repeat="issue in FixedIncome.issueTypes"
+							value="{{issue.issuetypes}}">{{issue.issuetypes}}</option>
+					</select>
+				</div>
+			</div>
+			<div class="rmc-6 pad50">
+				<button type="button" class="btn   streambtn" ng-click="sendName();">Equity
+				</button>
+				<div class="btn-group marl20">
+					<select class="form-control dropdown-toggle issuebtn select-hide"
+						ng-model="Equity.issue" ng-click="getDivisionIssues('Equity')"
+						ng-change="updateChart(Equity.issue,'Equity')">
+						<option class="select-dropdown" value='null' ng-selected=''>Issue
+							Type</option>
+						<option class="select-dropdown"
+							ng-repeat="issue in Equity.issueTypes"
+							value="{{issue.issuetypes}}">{{issue.issuetypes}}</option>
+					</select>
+				</div>
+			</div>
+			<div class="rmc-6">
+				<div class="rmc-2">
+					<span class="comments">{{FixedIncome.FixedIncome_gross_nv}}</span>
+					<div class="img-responsive" id="FixedIncome_gross_nv" />
+				</div>
+				<div class="rmc-2">
+					<span class="comments">{{FixedIncome.FixedIncome_net_nv}}</span>
+					<div class="img-responsive" id="FixedIncome_net_nv" />
+				</div>
+				<div class="rmc-2">
+					<span class="comments">{{FixedIncome.FixedIncome_num_orders}}</span>
+					<div class="img-responsive" id="FixedIncome_num_orders" />
+				</div>
+				<div class="rmc-2">
+					<div class="img-responsive"
+						id="FixedIncome_desk_GROSS_NOTIONALVALUE" />
+				</div>
+				<div class="rmc-2">
+					<div class="img-responsive" id="FixedIncome_desk_NET_NOTIONALVALUE" />
+				</div>
+				<div class="rmc-2">
+					<div class="img-responsive" id="FixedIncome_desk_NUM_ORDERS" />
+				</div>
+				<div class="rmc-2">
+					<select class="form-control dropdown-toggle" ng-model="fdcselect"
+						ng-init="fdcselect='null'"
+						ng-change="updateScatter('FixedIncome',fdcselect,'FixedIncome_client_pred_vs_actual_GROSS_NOTIONALVALUE')">
+						<option class="select-dropdown" value='null' ng-selected=''>All</option>
+						<option class="select-dropdown"
+							ng-repeat="client in FixedIncome.client_GROSS_NOTIONALVALUE track by $index"
+							value="Client_{{client}}">Client_{{client}}</option>
+					</select>
+					<div class="img-responsive"
+						id="FixedIncome_client_pred_vs_actual_GROSS_NOTIONALVALUE" />
+				</div>
+				<div class="rmc-2">
+					<select class="form-control dropdown-toggle" ng-model="fdcselect1"
+						ng-init="fdcselect1='null'"
+						ng-change="updateScatter('FixedIncome',fdcselect1,'FixedIncome_client_pred_vs_actual_NET_NOTIONALVALUE')">
+						<option class="select-dropdown" value='null' ng-selected=''>All</option>
+						<option class="select-dropdown"
+							ng-repeat="client in FixedIncome.client_NET_NOTIONALVALUE track by $index"
+							value="Client_{{client}}">Client_{{client}}</option>
+					</select>
+					<div class="img-responsive"
+						id="FixedIncome_client_pred_vs_actual_NET_NOTIONALVALUE" />
+				</div>
+				<div class="rmc-2">
+					<select class="form-control dropdown-toggle" ng-model="fdcselect2"
+						ng-init="fdcselect2='null'"
+						ng-change="updateScatter('FixedIncome',fdcselect2,'FixedIncome_client_pred_vs_actual_NUM_ORDERS')">
+						<option class="select-dropdown" value='null' ng-selected=''>All</option>
+						<option class="select-dropdown"
+							ng-repeat="client in FixedIncome.client_NUM_ORDERS track by $index"
+							value="Client_{{client}}">Client_{{client}}</option>
+					</select>
+					<div class="img-responsive"
+						id="FixedIncome_client_pred_vs_actual_NUM_ORDERS" />
+				</div>
+				<div class="rmc-2">
+					<select class="form-control dropdown-toggle" ng-model="fdsselect"
+						ng-init="fdsselect='null'"
+						ng-change="updateScatter('FixedIncome',fdsselect,'FixedIncome_symbol_pred_vs_actual_GROSS_NOTIONALVALUE')">
+						<option class="select-dropdown" value='null' ng-selected=''>All</option>
+						<option class="select-dropdown"
+							ng-repeat="client in FixedIncome.symbol_GROSS_NOTIONALVALUE track by $index"
+							value="{{client}}">{{client}}</option>
+					</select>
+					<div class="img-responsive"
+						id="FixedIncome_symbol_pred_vs_actual_GROSS_NOTIONALVALUE" />
+				</div>
+				<div class="rmc-2">
+					<select class="form-control dropdown-toggle" ng-model="fdsselect1"
+						ng-init="fdsselect1='null'"
+						ng-change="updateScatter('FixedIncome',fdsselect1,'FixedIncome_symbol_pred_vs_actual_NET_NOTIONALVALUE')">
+						<option class="select-dropdown" value='null' ng-selected=''>All</option>
+						<option class="select-dropdown"
+							ng-repeat="client in FixedIncome.symbol_NET_NOTIONALVALUE track by $index"
+							value="{{client}}">{{client}}</option>
+					</select>
+					<div class="img-responsive"
+						id="FixedIncome_symbol_pred_vs_actual_NET_NOTIONALVALUE" />
+				</div>
+				<div class="rmc-2">
+					<select class="form-control dropdown-toggle" ng-model="fdsselect2"
+						ng-init="fdsselect2='null'"
+						ng-change="updateScatter('FixedIncome',fdsselect2,'FixedIncome_symbol_pred_vs_actual_NUM_ORDERS')">
+						<option class="select-dropdown" value='null' ng-selected=''>All</option>
+						<option class="select-dropdown"
+							ng-repeat="client in FixedIncome.symbol_NUM_ORDERS track by $index"
+							value="{{client}}">{{client}}</option>
+					</select>
+					<div class="img-responsive"
+						id="FixedIncome_symbol_pred_vs_actual_NUM_ORDERS" />
+				</div>
+				<div class="rmc-2">
+					<div class="img-responsive" id="FixedIncome_outliers" />
+				</div>
+				<div class="rmc-2">
+					<div class="img-responsive" id="FixedIncome_OMPROCESS" />
+				</div>
+				<div class="rmc-2">
+					<div class="img-responsive" id="FixedIncome_Trader" />
+				</div>
+			</div>
+			<div class="rmc-6">
+				<div class="rmc-2">
+					<span class="comments">{{Equity.Equity_gross_nv}}</span>
+					<div class="img-responsive" id="Equity_gross_nv" />
+				</div>
+				<div class="rmc-2">
+					<span class="comments">{{Equity.Equity_net_nv}}</span>
+					<div class="img-responsive" id="Equity_net_nv" />
+				</div>
+				<div class="rmc-2">
+					<span class="comments">{{Equity.Equity_num_orders}}</span>
+					<div class="img-responsive" id="Equity_num_orders" />
+				</div>
+				<div class="rmc-2">
+					<div class="img-responsive" id="Equity_desk_GROSS_NOTIONALVALUE" />
+				</div>
+				<div class="rmc-2">
+					<div class="img-responsive" id="Equity_desk_NET_NOTIONALVALUE" />
+				</div>
+				<div class="rmc-2">
+					<div class="img-responsive" id="Equity_desk_NUM_ORDERS" />
+				</div>
+				<div class="rmc-2">
+					<select class="form-control dropdown-toggle" ng-model="eqcselect"
+						ng-init="eqcselect='null'"
+						ng-change="updateScatter('Equity',eqcselect,'Equity_client_pred_vs_actual_GROSS_NOTIONALVALUE')">
+						<option class="select-dropdown" value='null' ng-selected=''>All</option>
+						<option class="select-dropdown"
+							ng-repeat="client in Equity.client_GROSS_NOTIONALVALUE track by $index"
+							value="Client_{{client}}">Client_{{client}}</option>
+					</select>
+					<div class="img-responsive"
+						id="Equity_client_pred_vs_actual_GROSS_NOTIONALVALUE" />
+				</div>
+				<div class="rmc-2">
+					<select class="form-control dropdown-toggle" ng-model="eqcselect1"
+						ng-init="eqcselect1='null'"
+						ng-change="updateScatter('Equity',eqcselect1,'Equity_client_pred_vs_actual_NET_NOTIONALVALUE')">
+						<option class="select-dropdown" value='null' ng-selected=''>All</option>
+						<option class="select-dropdown"
+							ng-repeat="client in Equity.client_NET_NOTIONALVALUE track by $index"
+							value="Client_{{client}}">Client_{{client}}</option>
+					</select>
+					<div class="img-responsive"
+						id="Equity_client_pred_vs_actual_NET_NOTIONALVALUE" />
+				</div>
+				<div class="rmc-2">
+					<select class="form-control dropdown-toggle" ng-model="eqcselect2"
+						ng-init="eqcselect2='null'"
+						ng-change="updateScatter('Equity',eqcselect2,'Equity_client_pred_vs_actual_NUM_ORDERS')">
+						<option class="select-dropdown" value='null' ng-selected=''>All</option>
+						<option class="select-dropdown"
+							ng-repeat="client in Equity.client_NUM_ORDERS track by $index"
+							value="Client_{{client}}">Client_{{client}}</option>
+					</select>
+					<div class="img-responsive"
+						id="Equity_client_pred_vs_actual_NUM_ORDERS" />
+				</div>
+				<div class="rmc-2">
+					<select class="form-control dropdown-toggle" ng-model="eqsselect"
+						ng-init="eqsselect='null'"
+						ng-change="updateScatter('Equity',eqsselect,'Equity_symbol_pred_vs_actual_GROSS_NOTIONALVALUE')">
+						<option class="select-dropdown" value='null' ng-selected=''>All</option>
+						<option class="select-dropdown"
+							ng-repeat="client in Equity.symbol_GROSS_NOTIONALVALUE track by $index"
+							value="{{client}}">{{client}}</option>
+					</select>
+					<div class="img-responsive"
+						id="Equity_symbol_pred_vs_actual_GROSS_NOTIONALVALUE" />
+				</div>
+				<div class="rmc-2">
+					<select class="form-control dropdown-toggle" ng-model="eqsselect1"
+						ng-init="eqsselect1='null'"
+						ng-change="updateScatter('Equity',eqsselect1,'Equity_symbol_pred_vs_actual_NET_NOTIONALVALUE')">
+						<option class="select-dropdown" value='null' ng-selected=''>All</option>
+						<option class="select-dropdown"
+							ng-repeat="client in Equity.symbol_NET_NOTIONALVALUE track by $index"
+							value="{{client}}">{{client}}</option>
+					</select>
+					<div class="img-responsive"
+						id="Equity_symbol_pred_vs_actual_NET_NOTIONALVALUE" />
+				</div>
+				<div class="rmc-2">
+					<select class="form-control dropdown-toggle" ng-model="eqsselect2"
+						ng-init="eqsselect2='null'"
+						ng-change="updateScatter('Equity',eqsselect2,'Equity_symbol_pred_vs_actual_NUM_ORDERS')">
+						<option class="select-dropdown" value='null' ng-selected=''>All</option>
+						<option class="select-dropdown"
+							ng-repeat="client in Equity.symbol_NUM_ORDERS track by $index"
+							value="{{client}}">{{client}}</option>
+					</select>
+					<div class="img-responsive"
+						id="Equity_symbol_pred_vs_actual_NUM_ORDERS" />
+				</div>
+				<div class="rmc-2">
+					<div class="img-responsive" id="Equity_outliers" />
+				</div>
+				<div class="rmc-2">
+					<div class="img-responsive" id="Equity_OMPROCESS" />
+				</div>
+				<div class="rmc-2">
+					<div class="img-responsive" id="Equity_Trader" />
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- /#tenjinpage-wrapper -->
+	<!--<div class="footer">
+  <div ng-include="'views/footer.html'"></div>
+</div>-->
+	<!-- /#wrapper -->
+	<script>
+$('.dropdown-menu a').on('click', function(){    
+    $(this).parent().parent().prev().html($(this).html() + '<span class="caret"></span>');    
+})
+</script>
+	<!-- Custom Theme JavaScript -->
+	<script src="js/sb-admin-2.js"></script>

@@ -1,0 +1,1281 @@
+<div id="wrapper" ng-app="app"> 
+  <!-- Navigation -->
+  <div ng-include="'views/header.html'"></div>
+  
+  
+  <!-- Tabs Start-->
+  <div ng-cloak="" class="tabsdemoDynamicHeight">
+  <md-content>
+    <md-tabs class="md-primary">
+      <md-tab label="Trading Anomalies">
+        <md-content class="md-padding">
+       <p class="md-body-1">
+  <div class="container-fluid martm10">
+    <div class="row">
+      <div class="rmc-6 headerbg borderright">
+        <table style="width:100%">
+        <tr>
+        <td width="39%">
+        <button type="button" class="btn pull-left streambtn">Fixed Income</button>
+        </td>
+        <td width="33%" align="center">
+	<div class="lastupdated">
+		<span class="historydate" ng-if="dateFilter!='NULL'">{{dateFilter| date:'MM/dd/yyyy'}}</span>
+		<span ng-if="dateFilter=='NULL'">{{lastTime}}</span>
+	</div>
+        </td>
+        <td width="27%">
+        <div class="btn-group  pull-right">
+          <select class="form-control pull-right dropdown-toggle issuebtn select-hide" ng-model="FixedIncome.issue" ng-click="getDivisionIssues('FixedIncome')" ng-change="updateChart(FixedIncome.issue,'FixedIncome')">
+            <option class="select-dropdown" value='null' ng-selected=''>Issue Type</option>
+            <option class="select-dropdown" ng-repeat="issue in FixedIncome.issueTypes" value="{{issue.issuetypes}}">{{issue.issuetypes}} </option>
+          </select>
+        </div>
+        </td>
+        </tr>
+        </table>
+      </div>
+      <div class="rmc-6 headerbg">
+        <table style="width:100%">
+        <tr>
+        <td width="39%">
+        <button type="button" class="btn streambtn pull-left" ng-click="sendName();">Equity </button>
+        </td>
+        <td width="33%" align="center">
+		<div class="lastupdated">
+		<span class="historydate" ng-if="dateFilter!='NULL'">{{dateFilter| date:'MM/dd/yyyy'}}</span>
+		<span ng-if="dateFilter=='NULL'">{{lastTime}}</span>
+		</div>
+        </td>
+        <td width="27%">
+        <div class="btn-group pull-right">
+          <select class="form-control pull-right dropdown-toggle issuebtn select-hide" ng-model="Equity.issue" ng-click="getDivisionIssues('Equity')" ng-change="updateChart(Equity.issue,'Equity')">
+            <option class="select-dropdown" value='null' ng-selected=''>Issue Type</option>
+            <option class="select-dropdown" ng-repeat="issue in Equity.issueTypes" value="{{issue.issuetypes}}">{{issue.issuetypes}} </option>
+          </select>
+        </div>
+        </td>
+        </tr>
+        </table>
+      </div>
+      <div class="rmc-6">
+        <table style="width:100%" class="chartstable">
+
+        <tr>
+        <td width="4%" background="img/bluegradient.gif">
+        <div class="rotate">DIVISION</div>
+        </td>
+        <td width="32%">
+          <table style="width:100%">
+          <tr>
+          <td width="100%">
+          <div>
+          <span class="graphtitle col-md-6">Gross NV</span>
+          <span class="comments col-md-3">{{FixedIncome.FixedIncome_gross_nv}}</span>
+          </div>
+          </td>
+          </tr>
+          <tr>
+          <td width="100%">
+          <div class="img-responsive" id="FixedIncome_gross_nv"></div>
+          </td>
+          </tr>
+          </table>
+        </td>
+        <td width="32%">
+          <table style="width:100%">
+          <tr>
+          <td width="100%">
+          <div>
+          <span class="graphtitle col-md-6">Net NV</span>
+          <span class="comments col-md-3">{{FixedIncome.FixedIncome_net_nv}}</span>
+          </div>
+          </td>
+          </tr>
+          <tr>
+          <td width="100%">
+          <div class="img-responsive" id="FixedIncome_net_nv"></div>
+          </td>
+          </tr>
+          </table>
+        </td>
+        <td width="32%">
+          <table style="width:100%">
+          <tr>
+          <td width="100%">
+          <div>
+          <span class="graphtitle col-md-6">Num Orders</span>
+          <span class="comments col-md-3">{{FixedIncome.FixedIncome_num_orders}}</span>
+          </div>
+          </td>
+          </tr>
+          <tr>
+          <td width="100%">
+          <div class="img-responsive" id="FixedIncome_num_orders"></div>
+          </td>
+          </tr>
+          </table>
+        </td>
+        </tr>
+
+        <tr>
+        <td width="4%" background="img/bluegradient.gif">
+        <div class="rotate">DESK</div>
+        </td>
+        <td width="32%">
+          <table style="width:100%">
+          <tr>
+          <td width="100%">
+          <div>
+          <span class="graphtitle col-md-12">Gross NV</span>
+          </div>
+          </td>
+          </tr>
+          <tr>
+          <td width="100%">
+          <div class="img-responsive " id="FixedIncome_desk_GROSS_NV"> </div>
+          </td>
+          </tr>
+          </table>
+        </td>
+        <td width="32%">
+          <table style="width:100%">
+          <tr>
+          <td width="100%">
+          <div>
+          <span class="graphtitle col-md-12">Net NV</span>
+          </div>
+          </td>
+          </tr>
+          <tr>
+          <td width="100%">
+          <div class="img-responsive " id="FixedIncome_desk_NET_NV"></div>
+          </td>
+          </tr>
+          </table>
+        </td>
+        <td width="32%">
+          <table style="width:100%">
+          <tr>
+          <td width="100%">
+          <div>
+          <span class="graphtitle col-md-12">Num Orders</span>
+          </div>
+          </td>
+          </tr>
+          <tr>
+          <td width="100%">
+          <div class="img-responsive " id="FixedIncome_desk_NUM_ORDERS"></div>
+          </td>
+          </tr>
+          </table>
+        </td>
+       </tr>
+       <tr>
+        <td width="4%" background="img/bluegradient.gif">
+        <div class="rotate">CLIENTS</div>
+        </td>
+        <td width="32%">
+          <table style="width:100%">
+          <tr>
+          <td width="100%">
+          <div>
+            <span class="graphtitle col-md-6">Gross NV</span>
+            <div class="btn-group  pull-right col-md-6">
+            <select class="form-control pull-right dropdown-toggle filterbtn" ng-model="fdcselect" ng-init="fdcselect='null'" ng-change="updateScatter('FixedIncome',fdcselect,'FixedIncome_client_pred_vs_actual_GROSS_NV')" ng-show="FixedIncome.client_GROSS_NV.length > 0">
+                <option class="select-dropdown" value='null' ng-selected=''>All</option>
+                <option class="select-dropdown" ng-repeat="client in FixedIncome.client_GROSS_NV track by $index" value="Client_{{client}}">Client_{{client}} </option>
+            </select>
+			<select class="form-control pull-right dropdown-toggle filterbtn mart5" ng-model="fdcrange" ng-init="fdcrange='null'" ng-change="updateRange('FixedIncome',fdcrange,'FixedIncome_client_pred_vs_actual_GROSS_NV')" ng-show="FixedIncome.client_GROSS_NV.length > 0">
+                <option class="select-dropdown" value='null' ng-selected=''>All</option>
+                <option class="select-dropdown" value='0.1' ng-selected=''> <10% </option>
+				<option class="select-dropdown" value='0.2' ng-selected=''> <20% </option>
+				<option class="select-dropdown" value='0.8' ng-selected=''> >80% </option>
+				<option class="select-dropdown" value='0.9' ng-selected=''> >90% </option>
+            </select>
+            </div>
+          </div>
+          </td>
+          </tr>
+          <tr>
+          <td width="100%">
+          <div class="img-responsive " id="FixedIncome_client_pred_vs_actual_GROSS_NV"></div>
+          </td>
+          </tr>
+          </table>
+        </td>
+
+        <td width="32%">
+          <table style="width:100%">
+          <tr>
+          <td width="100%">
+          <div>
+	    <span class="graphtitle col-md-6">Net NV</span>
+            <div class="btn-group  pull-right col-md-6">
+            <select class="form-control pull-right dropdown-toggle filterbtn" ng-model="fdcselect1" ng-init="fdcselect1='null'" ng-change="updateScatter('FixedIncome',fdcselect1,'FixedIncome_client_pred_vs_actual_NET NV')" ng-show="FixedIncome.client_NET_NV.length > 0">
+               <option class="select-dropdown" value='null' ng-selected=''>All</option>
+               <option class="select-dropdown" ng-repeat="client in FixedIncome.client_NET_NV track by $index" value="Client_{{client}}">Client_{{client}} </option>
+            </select>
+			<select class="form-control pull-right dropdown-toggle filterbtn mart5" ng-model="fdcrange1" ng-init="fdcrange1='null'" ng-change="updateRange('FixedIncome',fdcrange1,'FixedIncome_client_pred_vs_actual_NET NV')" ng-show="FixedIncome.client_NET_NV.length > 0">
+                <option class="select-dropdown" value='null' ng-selected=''>All</option>
+                <option class="select-dropdown" value='0.1' ng-selected=''> <10% </option>
+				<option class="select-dropdown" value='0.2' ng-selected=''> <20% </option>
+				<option class="select-dropdown" value='0.8' ng-selected=''> >80% </option>
+				<option class="select-dropdown" value='0.9' ng-selected=''> >90% </option>
+            </select>
+            </div>
+          </div>
+          </td>
+          </tr>
+          <tr>
+          <td width="100%">
+          <div class="img-responsive " id="FixedIncome_client_pred_vs_actual_NET_NV"></div>
+          </td>
+          </tr>
+          </table>
+        </td>
+
+        <td width="32%">
+          <table style="width:100%">
+          <tr>
+          <td width="100%">
+          <div>
+	    <span class="graphtitle col-md-6">Num Orders</span>
+            <div class="btn-group  pull-right col-md-6">
+            <select class="form-control pull-right dropdown-toggle filterbtn" ng-model="fdcselect2" ng-init="fdcselect2='null'" ng-change="updateScatter('FixedIncome',fdcselect2,'FixedIncome_client_pred_vs_actual_NUM ORDERS')" ng-show="FixedIncome.client_NUM_ORDERS.length > 0">
+              <option class="select-dropdown" value='null' ng-selected=''>All</option>
+              <option class="select-dropdown" ng-repeat="client in FixedIncome.client_NUM_ORDERS track by $index" value="Client_{{client}}">Client_{{client}} </option>
+            </select>
+			<select class="form-control pull-right dropdown-toggle filterbtn mart5" ng-model="fdcrange2" ng-init="fdcrange2='null'" ng-change="updateRange('FixedIncome',fdcrange2,'FixedIncome_client_pred_vs_actual_NUM ORDERS')" ng-show="FixedIncome.client_NUM_ORDERS.length > 0">
+                <option class="select-dropdown" value='null' ng-selected=''>All</option>
+                <option class="select-dropdown" value='0.1' ng-selected=''> <10% </option>
+				<option class="select-dropdown" value='0.2' ng-selected=''> <20% </option>
+				<option class="select-dropdown" value='0.8' ng-selected=''> >80% </option>
+				<option class="select-dropdown" value='0.9' ng-selected=''> >90% </option>
+            </select>
+            </div>
+          </div>
+          </td>
+          </tr>
+          <tr>
+          <td width="100%">
+          <div class="img-responsive " id="FixedIncome_client_pred_vs_actual_NUM_ORDERS"></div>
+          </td>
+          </tr>
+          </table>
+        </td>
+      </tr>
+
+      <tr>
+        <td width="4%" background="img/bluegradient.gif">
+        <div class="rotate">SYMBOLS</div>
+        </td>
+        <td width="32%">
+          <table style="width:100%">
+          <tr>
+          <td width="100%">
+          <div>
+	    <span class="graphtitle col-md-6">Gross NV</span>
+            <div class="btn-group  pull-right col-md-6">
+            <select class="form-control pull-right dropdown-toggle filterbtn" ng-model="fdsselect" ng-init="fdsselect='null'" ng-change="updateScatter('FixedIncome',fdsselect,'FixedIncome_symbol_pred_vs_actual_GROSS_NV')" ng-show="FixedIncome.symbol_GROSS_NV.length > 0">
+              <option class="select-dropdown" value='null' ng-selected=''>All</option>
+              <option class="select-dropdown" ng-repeat="client in FixedIncome.symbol_GROSS_NV track by $index" value="{{client}}">{{client}} </option>
+            </select>
+			<select class="form-control pull-right dropdown-toggle filterbtn mart5" ng-model="fdsrange" ng-init="fdsrange='null'" ng-change="updateRange('FixedIncome',fdsrange,'FixedIncome_symbol_pred_vs_actual_GROSS_NV')" ng-show="FixedIncome.symbol_GROSS_NV.length > 0">
+                <option class="select-dropdown" value='null' ng-selected=''>All</option>
+                <option class="select-dropdown" value='0.1' ng-selected=''> <10% </option>
+				<option class="select-dropdown" value='0.2' ng-selected=''> <20% </option>
+				<option class="select-dropdown" value='0.8' ng-selected=''> >80% </option>
+				<option class="select-dropdown" value='0.9' ng-selected=''> >90% </option>
+            </select>
+            </div>
+          </div>
+          </td>
+          </tr>
+          <tr>
+          <td width="100%">
+          <div class="img-responsive" id="FixedIncome_symbol_pred_vs_actual_GROSS_NV"></div>
+          </td>
+          </tr>
+          </table>
+        </td>
+
+        <td width="32%">
+          <table style="width:100%">
+          <tr>
+          <td width="100%">
+          <div>
+	    <span class="graphtitle col-md-6">Net NV</span>
+            <div class="btn-group  pull-right col-md-6">
+            <select class="form-control pull-right dropdown-toggle filterbtn" ng-model="fdsselect1" ng-init="fdsselect1='null'" ng-change="updateScatter('FixedIncome',fdsselect1,'FixedIncome_symbol_pred_vs_actual_NET NV')" ng-show="FixedIncome.symbol_NET_NV.length > 0">
+              <option class="select-dropdown" value='null' ng-selected=''>All</option>
+              <option class="select-dropdown" ng-repeat="client in FixedIncome.symbol_NET_NV track by $index" value="{{client}}">{{client}} </option>
+            </select>
+			<select class="form-control pull-right dropdown-toggle filterbtn mart5" ng-model="fdsrange1" ng-init="fdsrange1='null'" ng-change="updateRange('FixedIncome',fdsrange1,'FixedIncome_symbol_pred_vs_actual_NET NV')" ng-show="FixedIncome.symbol_NET_NV.length > 0">
+                <option class="select-dropdown" value='null' ng-selected=''>All</option>
+                <option class="select-dropdown" value='0.1' ng-selected=''> <10% </option>
+				<option class="select-dropdown" value='0.2' ng-selected=''> <20% </option>
+				<option class="select-dropdown" value='0.8' ng-selected=''> >80% </option>
+				<option class="select-dropdown" value='0.9' ng-selected=''> >90% </option>
+            </select>
+            </div>
+          </div>
+          </td>
+          </tr>
+          <tr>
+          <td width="100%">
+          <div class="img-responsive" id="FixedIncome_symbol_pred_vs_actual_NET_NV"></div>
+          </td>
+          </tr>
+          </table>
+        </td>
+
+        <td width="32%">
+          <table style="width:100%">
+          <tr>
+          <td width="100%">
+          <div>
+	    <span class="graphtitle col-md-6">Num Orders</span>
+            <div class="btn-group  pull-right col-md-6">
+            <select class="form-control pull-right dropdown-toggle filterbtn" ng-model="fdsselect2" ng-init="fdsselect2='null'" ng-change="updateScatter('FixedIncome',fdsselect2,'FixedIncome_symbol_pred_vs_actual_NUM ORDERS')" ng-show="FixedIncome.symbol_NUM_ORDERS.length > 0">
+              <option class="select-dropdown" value='null' ng-selected=''>All</option>
+              <option class="select-dropdown" ng-repeat="client in FixedIncome.symbol_NUM_ORDERS track by $index" value="{{client}}">{{client}} </option>
+            </select>
+			<select class="form-control pull-right dropdown-toggle filterbtn mart5" ng-model="fdsrange2" ng-init="fdsrange2='null'" ng-change="updateRange('FixedIncome',fdsrange2,'FixedIncome_symbol_pred_vs_actual_NUM ORDERS')" ng-show="FixedIncome.symbol_NUM_ORDERS.length > 0">
+                <option class="select-dropdown" value='null' ng-selected=''>All</option>
+                <option class="select-dropdown" value='0.1' ng-selected=''> <10% </option>
+				<option class="select-dropdown" value='0.2' ng-selected=''> <20% </option>
+				<option class="select-dropdown" value='0.8' ng-selected=''> >80% </option>
+				<option class="select-dropdown" value='0.9' ng-selected=''> >90% </option>
+            </select>
+            </div>
+          </div>
+          </td>
+          </tr>
+          <tr>
+          <td width="100%">
+          <div class="img-responsive" id="FixedIncome_symbol_pred_vs_actual_NUM_ORDERS"></div>
+          </td>
+          </tr>
+          </table>
+        </td>
+      </tr>
+
+      <tr>
+        <td width="4%" background="img/bluegradient.gif">
+        <div class="rotate">MISC</div>
+        </td>
+        <td width="32%">
+          <table style="width:100%">
+          <tr>
+          <td width="100%">
+          <div>
+	    <span class="graphtitle col-md-12" >Single Order Outliers</span>
+          </div>
+          </td>
+          </tr>
+          <tr>
+          <td width="100%">
+          <span> </span>
+          <div class="img-responsive" id="FixedIncome_outliers"></div>
+          </td>
+          </tr>
+          </table>
+        </td>
+
+        <td width="32%">
+          <table style="width:100%">
+          <tr>
+          <td width="100%">
+          <div>
+	    <span class="graphtitle col-md-12" >OM Process Heatmap</span>
+          </div>
+          </td>
+          </tr>
+          <tr>
+          <td width="100%">
+          <div class="img-responsive" id="FixedIncome_OMPROCESS"></div>
+          </td>
+          </tr>
+          </table>
+        </td>
+
+        <td width="32%">
+          <table style="width:100%">
+          <tr>
+          <td width="100%">
+          <div>
+	    <span class="graphtitle col-md-12" >Trader Heatmap</span>
+          </div>
+          </td>
+          </tr>
+          <tr>
+          <td width="100%">
+          <div class="img-responsive" id="FixedIncome_Trader"></div>
+          </td>
+          </tr>
+          </table>
+        </td>
+      </tr>
+      </table>
+
+    </div>
+
+    <div class="rmc-6">
+        <table style="width:100%" class="chartstable">
+        <tr>
+        <td width="4%" background="img/bluegradient.gif">
+        <div class="rotate">DIVISION</div>
+        </td>
+        <td width="32%">
+          <table style="width:100%">
+          <tr>
+          <td width="100%">
+          <div>
+          <span class="graphtitle col-md-6">Gross NV</span>
+          <span class="comments col-md-3">{{Equity.Equity_gross_nv}}</span>
+          </div>
+          </td>
+          </tr>
+          <tr>
+          <td width="100%">
+          <div class="img-responsive" id="Equity_gross_nv"></div>
+          </td>
+          </tr>
+          </table>
+        </td>
+        <td width="32%">
+          <table style="width:100%">
+          <tr>
+          <td width="100%">
+          <div>
+          <span class="graphtitle col-md-6">Net NV</span>
+          <span class="comments col-md-3">{{Equity.Equity_net_nv}}</span>
+          </div>
+          </td>
+          </tr>
+          <tr>
+          <td width="100%">
+          <div class="img-responsive" id="Equity_net_nv"></div>
+          </td>
+          </tr>
+          </table>
+        </td>
+        <td width="32%">
+          <table style="width:100%">
+          <tr>
+          <td width="100%">
+          <div>
+          <span class="graphtitle col-md-6">Num Orders</span>
+          <span class="comments col-md-3">{{Equity.Equity_num_orders}}</span>
+          </div>
+          </td>
+          </tr>
+          <tr>
+          <td width="100%">
+          <div class="img-responsive" id="Equity_num_orders"></div>
+          </td>
+          </tr>
+          </table>
+        </td>
+        </tr>
+
+        <tr>
+        <td width="4%" background="img/bluegradient.gif">
+        <div class="rotate">DESK</div>
+        </td>
+        <td width="32%">
+          <table style="width:100%">
+          <tr>
+          <td width="100%">
+          <div>
+          <span class="graphtitle col-md-12">Gross NV</span>
+          </div>
+          </td>
+          </tr>
+          <tr>
+          <td width="100%">
+          <div class="img-responsive " id="Equity_desk_GROSS_NV"> </div>
+          </td>
+          </tr>
+          </table>
+        </td>
+        <td width="32%">
+          <table style="width:100%">
+          <tr>
+          <td width="100%">
+          <div>
+          <span class="graphtitle col-md-12">Net NV</span>
+          </div>
+          </td>
+          </tr>
+          <tr>
+          <td width="100%">
+          <div class="img-responsive " id="Equity_desk_NET_NV"></div>
+          </td>
+          </tr>
+          </table>
+        </td>
+        <td width="32%">
+          <table style="width:100%">
+          <tr>
+          <td width="100%">
+          <div>
+          <span class="graphtitle col-md-12">Num Orders</span>
+          </div>
+          </td>
+          </tr>
+          <tr>
+          <td width="100%">
+          <div class="img-responsive " id="Equity_desk_NUM_ORDERS"></div>
+          </td>
+          </tr>
+          </table>
+        </td>
+       </tr>
+
+       <tr>
+        <td width="4%" background="img/bluegradient.gif">
+        <div class="rotate">CLIENTS</div>
+        </td>
+        <td width="32%">
+          <table style="width:100%">
+          <tr>
+          <td width="100%">
+          <div>
+            <span class="graphtitle col-md-6">Gross NV</span>
+            <div class="btn-group  pull-right col-md-6">
+            <select class="form-control pull-right dropdown-toggle filterbtn" ng-model="eqcselect" ng-init="eqcselect='null'" ng-change="updateScatter('Equity',eqcselect,'Equity_client_pred_vs_actual_GROSS_NV')" ng-show="Equity.client_GROSS_NV.length > 0">
+                <option class="select-dropdown" value='null' ng-selected=''>All</option>
+                <option class="select-dropdown" ng-repeat="client in Equity.client_GROSS_NV track by $index" value="Client_{{client}}">Client_{{client}} </option>
+            </select>
+			<select class="form-control pull-right dropdown-toggle filterbtn mart5" ng-model="eqcrange" ng-init="eqcrange='null'" ng-change="updateRange('Equity',eqcrange,'Equity_client_pred_vs_actual_GROSS_NV')" ng-show="Equity.client_GROSS_NV.length > 0">
+                <option class="select-dropdown" value='null' ng-selected=''>All</option>
+                <option class="select-dropdown" value='0.1' ng-selected=''> <10% </option>
+				<option class="select-dropdown" value='0.2' ng-selected=''> <20% </option>
+				<option class="select-dropdown" value='0.8' ng-selected=''> >80% </option>
+				<option class="select-dropdown" value='0.9' ng-selected=''> >90% </option>
+            </select>
+            </div>
+          </div>
+          </td>
+          </tr>
+          <tr>
+          <td width="100%">
+          <div class="img-responsive " id="Equity_client_pred_vs_actual_GROSS_NV"></div>
+          </td>
+          </tr>
+          </table>
+        </td>
+
+        <td width="32%">
+          <table style="width:100%">
+          <tr>
+          <td width="100%">
+          <div>
+	    <span class="graphtitle col-md-6">Net NV</span>
+            <div class="btn-group  pull-right col-md-6">
+            <select class="form-control pull-right dropdown-toggle filterbtn" ng-model="eqcselect1" ng-init="eqcselect1='null'" ng-change="updateScatter('Equity',eqcselect1,'Equity_client_pred_vs_actual_NET NV')" ng-show="Equity.client_NET_NV.length > 0">
+               <option class="select-dropdown" value='null' ng-selected=''>All</option>
+               <option class="select-dropdown" ng-repeat="client in Equity.client_NET_NV track by $index" value="Client_{{client}}">Client_{{client}} </option>
+            </select>
+			<select class="form-control pull-right dropdown-toggle filterbtn mart5" ng-model="eqcrange1" ng-init="eqcrange1='null'" ng-change="updateRange('Equity',eqcrange1,'Equity_client_pred_vs_actual_NET NV')" ng-show="Equity.client_NET_NV.length > 0">
+                <option class="select-dropdown" value='null' ng-selected=''>All</option>
+                <option class="select-dropdown" value='0.1' ng-selected=''> <10% </option>
+				<option class="select-dropdown" value='0.2' ng-selected=''> <20% </option>
+				<option class="select-dropdown" value='0.8' ng-selected=''> >80% </option>
+				<option class="select-dropdown" value='0.9' ng-selected=''> >90% </option>
+            </select>
+            </div>
+          </div>
+          </td>
+          </tr>
+          <tr>
+          <td width="100%">
+          <div class="img-responsive " id="Equity_client_pred_vs_actual_NET_NV"></div>
+          </td>
+          </tr>
+          </table>
+        </td>
+
+        <td width="32%">
+          <table style="width:100%">
+          <tr>
+          <td width="100%">
+          <div>
+	    <span class="graphtitle col-md-6">Num Orders</span>
+            <div class="btn-group  pull-right col-md-6">
+            <select class="form-control pull-right dropdown-toggle filterbtn" ng-model="eqcselect2" ng-init="eqcselect2='null'" ng-change="updateScatter('Equity',eqcselect2,'Equity_client_pred_vs_actual_NUM ORDERS')" ng-show="Equity.client_NUM_ORDERS.length > 0">
+              <option class="select-dropdown" value='null' ng-selected=''>All</option>
+              <option class="select-dropdown" ng-repeat="client in Equity.client_NUM_ORDERS track by $index" value="Client_{{client}}">Client_{{client}} </option>
+            </select>
+			<select class="form-control pull-right dropdown-toggle filterbtn mart5" ng-model="eqcrange2" ng-init="eqcrange2='null'" ng-change="updateRange('Equity',eqcrange2,'Equity_client_pred_vs_actual_NUM ORDERS')" ng-show="Equity.client_NUM_ORDERS.length > 0">
+                <option class="select-dropdown" value='null' ng-selected=''>All</option>
+                <option class="select-dropdown" value='0.1' ng-selected=''> <10% </option>
+				<option class="select-dropdown" value='0.2' ng-selected=''> <20% </option>
+				<option class="select-dropdown" value='0.8' ng-selected=''> >80% </option>
+				<option class="select-dropdown" value='0.9' ng-selected=''> >90% </option>
+            </select>
+            </div>
+          </div>
+          </td>
+          </tr>
+          <tr>
+          <td width="100%">
+          <div class="img-responsive " id="Equity_client_pred_vs_actual_NUM_ORDERS"></div>
+          </td>
+          </tr>
+          </table>
+        </td>
+      </tr>
+
+      <tr>
+        <td width="4%" background="img/bluegradient.gif">
+        <div class="rotate">SYMBOLS</div>
+        </td>
+        <td width="32%">
+          <table style="width:100%">
+          <tr>
+          <td width="100%">
+          <div>
+	    <span class="graphtitle col-md-6">Gross NV</span>
+            <div class="btn-group  pull-right col-md-6">
+            <select class="form-control pull-right dropdown-toggle filterbtn" ng-model="eqsselect" ng-init="eqsselect='null'" ng-change="updateScatter('Equity',eqsselect,'Equity_symbol_pred_vs_actual_GROSS_NV')" ng-show="Equity.symbol_GROSS_NV.length > 0">
+              <option class="select-dropdown" value='null' ng-selected=''>All</option>
+              <option class="select-dropdown" ng-repeat="client in Equity.symbol_GROSS_NV track by $index" value="{{client}}">{{client}} </option>
+            </select>
+			<select class="form-control pull-right dropdown-toggle filterbtn mart5" ng-model="eqsrange" ng-init="eqsrange='null'" ng-change="updateRange('Equity',eqsrange,'Equity_symbol_pred_vs_actual_GROSS_NV')" ng-show="Equity.symbol_GROSS_NV.length > 0">
+                <option class="select-dropdown" value='null' ng-selected=''>All</option>
+                <option class="select-dropdown" value='0.1' ng-selected=''> <10% </option>
+				<option class="select-dropdown" value='0.2' ng-selected=''> <20% </option>
+				<option class="select-dropdown" value='0.8' ng-selected=''> >80% </option>
+				<option class="select-dropdown" value='0.9' ng-selected=''> >90% </option>
+            </select>
+            </div>
+          </div>
+          </td>
+          </tr>
+          <tr>
+          <td width="100%">
+          <div class="img-responsive" id="Equity_symbol_pred_vs_actual_GROSS_NV"></div>
+          </td>
+          </tr>
+          </table>
+        </td>
+
+        <td width="32%">
+          <table style="width:100%">
+          <tr>
+          <td width="100%">
+          <div>
+	    <span class="graphtitle col-md-6">Net NV</span>
+            <div class="btn-group  pull-right col-md-6">
+            <select class="form-control pull-right dropdown-toggle filterbtn" ng-model="eqsselect1" ng-init="eqsselect1='null'" ng-change="updateScatter('Equity',eqsselect1,'Equity_symbol_pred_vs_actual_NET NV')" ng-show="Equity.symbol_NET_NV.length > 0">
+              <option class="select-dropdown" value='null' ng-selected=''>All</option>
+              <option class="select-dropdown" ng-repeat="client in Equity.symbol_NET_NV track by $index" value="{{client}}">{{client}} </option>
+            </select>
+			<select class="form-control pull-right dropdown-toggle filterbtn mart5" ng-model="eqsrange1" ng-init="eqsrange1='null'" ng-change="updateRange('Equity',eqsrange1,'Equity_symbol_pred_vs_actual_NET NV')" ng-show="Equity.symbol_NET_NV.length > 0">
+                <option class="select-dropdown" value='null' ng-selected=''>All</option>
+                <option class="select-dropdown" value='0.1' ng-selected=''> <10% </option>
+				<option class="select-dropdown" value='0.2' ng-selected=''> <20% </option>
+				<option class="select-dropdown" value='0.8' ng-selected=''> >80% </option>
+				<option class="select-dropdown" value='0.9' ng-selected=''> >90% </option>
+            </select>
+            </div>
+          </div>
+          </td>
+          </tr>
+          <tr>
+          <td width="100%">
+          <div class="img-responsive" id="Equity_symbol_pred_vs_actual_NET_NV"></div>
+          </td>
+          </tr>
+          </table>
+        </td>
+
+        <td width="32%">
+          <table style="width:100%">
+          <tr>
+          <td width="100%">
+          <div>
+			<span class="graphtitle col-md-6">Num Orders</span>
+            <div class="btn-group  pull-right col-md-6">
+            <select class="form-control pull-right dropdown-toggle filterbtn" ng-model="eqsselect2" ng-init="eqsselect2='null'" ng-change="updateScatter('Equity',eqsselect2,'Equity_symbol_pred_vs_actual_NUM ORDERS')" ng-show="Equity.symbol_NUM_ORDERS.length > 0">
+              <option class="select-dropdown" value='null' ng-selected=''>All</option>
+              <option class="select-dropdown" ng-repeat="client in Equity.symbol_NUM_ORDERS track by $index" value="{{client}}">{{client}} </option>
+            </select>
+			<select class="form-control pull-right dropdown-toggle filterbtn mart5" ng-model="eqsrange2" ng-init="eqsrange2='null'" ng-change="updateRange('Equity',eqsrange2,'Equity_symbol_pred_vs_actual_NUM ORDERS')" ng-show="Equity.symbol_NUM_ORDERS.length > 0">
+                <option class="select-dropdown" value='null' ng-selected=''>All</option>
+                <option class="select-dropdown" value='0.1' ng-selected=''> <10% </option>
+				<option class="select-dropdown" value='0.2' ng-selected=''> <20% </option>
+				<option class="select-dropdown" value='0.8' ng-selected=''> >80% </option>
+				<option class="select-dropdown" value='0.9' ng-selected=''> >90% </option>
+            </select>
+            </div>
+          </div>
+          </td>
+          </tr>
+          <tr>
+          <td width="100%">
+          <div class="img-responsive" id="Equity_symbol_pred_vs_actual_NUM_ORDERS"></div>
+          </td>
+          </tr>
+          </table>
+        </td>
+      </tr>
+
+      <tr>
+        <td width="4%" background="img/bluegradient.gif">
+        <div class="rotate">MISC</div>
+        </td>
+        <td width="32%">
+          <table style="width:100%">
+          <tr>
+          <td width="100%">
+          <div>
+	    <span class="graphtitle col-md-12" >Single Order Outliers</span>
+          </div>
+          </td>
+          </tr>
+          <tr>
+          <td width="100%">
+          <span> </span>
+          <div class="img-responsive" id="Equity_outliers"></div>
+          </td>
+          </tr>
+          </table>
+        </td>
+
+        <td width="32%">
+          <table style="width:100%">
+          <tr>
+          <td width="100%">
+          <div>
+	    <span class="graphtitle col-md-12" >OM Process Heatmap</span>
+          </div>
+          </td>
+          </tr>
+          <tr>
+          <td width="100%">
+          <div class="img-responsive" id="Equity_OMPROCESS"></div>
+          </td>
+          </tr>
+          </table>
+        </td>
+
+        <td width="32%">
+          <table style="width:100%">
+          <tr>
+          <td width="100%">
+          <div>
+	    <span class="graphtitle col-md-12" >Trader Heatmap</span>
+          </div>
+          </td>
+          </tr>
+          <tr>
+          <td width="100%">
+          <div class="img-responsive" id="Equity_Trader"></div>
+          </td>
+          </tr>
+          </table>
+        </td>
+      </tr>
+      </table>
+    </div>
+  </div>
+</div>
+ </p>         
+        </md-content>
+      </md-tab>
+
+      <md-tab label="Compliance Anomalies" md-on-select="complianceAnom();getregnms()">
+        <md-content class="md-padding">
+          <p class="md-body-1">
+  <div class="container-fluid martm10">
+    <div class="row">
+      <div class="rmc-1 headerbg">
+        <table style="width:100%">
+        <tr>
+
+        <td width="39%">
+        <div class="btn-group">
+        <button type="button" class="btn streambtn pull-left" ng-click="sendName();">Equity </button>
+        <!--  <select class="form-control pull-right dropdown-toggle issuebtn select-hide" ng-model="Equity.desks" ng-click="getDivisionDesks('Equity')" ng-change="updateChart(Equity.desks,'Equity')">
+            <option class="select-dropdown" value='null' ng-selected=''>Desk</option>
+            <option class="select-dropdown" ng-repeat="desk in Equity.desks" value="{{desk.desk}}">{{desk.desk}} </option>
+          </select>
+          <select class="form-control pull-right dropdown-toggle issuebtn select-hide" ng-model="Equity.clients" ng-click="getDivisionClients('Equity')" ng-change="updateChart(Equity.clients,'Equity')">
+            <option class="select-dropdown" value='null' ng-selected=''>Client</option>
+            <option class="select-dropdown" ng-repeat="client in Equity.clients" value="{{client.clientid}}">{{client.clientid}} </option>
+          </select>
+          <select class="form-control pull-right dropdown-toggle issuebtn select-hide" ng-model="Equity.symbols" ng-click="getDivisionSymbols('Equity')" ng-change="updateChart(Equity.symbols,'Equity')">
+            <option class="select-dropdown" value='null' ng-selected=''>Symbol</option>
+            <option class="select-dropdown" ng-repeat="symbol in Equity.symbols" value="{{symbol.symbol}}">{{symbol.symbol}} </option>
+          </select>
+          <select class="form-control pull-right dropdown-toggle issuebtn select-hide" ng-model="Equity.traders" ng-click="getDivisionTraders('Equity')" ng-change="updateChart(Equity.traders,'Equity')">
+            <option class="select-dropdown" value='null' ng-selected=''>Trader</option>
+            <option class="select-dropdown" ng-repeat="trader in Equity.traders" value="{{trader.traderid}}">{{trader.traderid}} </option>
+          </select> -->
+        </div>
+        </td>
+
+        <td width="33%" align="center">
+		<div class="lastupdated">
+		<span class="historydate" ng-if="dateFilter!='NULL'">{{dateFilter| date:'MM/dd/yyyy'}}</span>
+		<span ng-if="dateFilter=='NULL'">{{lastTime}}</span>
+		</div>
+        </td>
+
+        <td width="27%">
+        <div class="btn-group pull-right">
+          <select class="form-control pull-right dropdown-toggle issuebtn select-hide" ng-model="Equity.issue" ng-click="getDivisionIssues('Equity')" ng-change="updateChart(Equity.issue,'Equity')">
+            <option class="select-dropdown" value='null' ng-selected=''>Issue Type</option>
+            <option class="select-dropdown" ng-repeat="issue in Equity.issueTypes" value="{{issue.issuetypes}}">{{issue.issuetypes}} </option>
+          </select>
+        </div>
+        </td>
+        </tr>
+        </table>
+      </div>
+      <div class="rmc-1">
+        <table style="width:100%" class="chartstable">
+        <tr>
+        <td width="2%" background="img/bluegradient.gif">
+        <div class="rotate">DIVISION</div>
+        </td>
+        <td width="90%" height="200px">
+          <table style="width:100%">
+          <tr>
+          <td width="44%">
+          <div>
+          <span class="graphtitle col-md-6">Gross NV</span>
+          <span class="comments col-md-3">{{Equity.Equity_gross_nv}}</span>
+          </div>
+          </td>
+          <td width="2%">
+          </td>
+          <td width="44%">
+          <div>
+          <span class="graphtitle col-md-6">Num Orders</span>
+          <span class="comments col-md-3">{{Equity.Equity_num_orders}}</span>
+          </div>
+          </td>
+          </tr>
+          <tr><td height="10%"></td></tr>
+          <tr>
+          <td height="100%">
+          <div class="img-responsive" id="Equity_gross_nv_compliance"></div>
+          </td>
+          <td height="100%">
+          </td>
+          <td height="100%">
+          <div class="img-responsive" id="Equity_num_orders_compliance"></div>
+          </td>
+          </tr>
+          </table>
+        </td>
+        </tr>
+        </table>
+      </div>
+      <div class="rmc-1">
+      <md-content>
+        <md-tabs class="md-primary">
+          <md-tab label="Rule 611 - RegNMS Anomalies"  md-on-select="getregnms()">
+            <md-content class="md-padding">
+            <table width="100%">
+            <tr>
+            <td width="2%">
+            </td>
+            <td width="90%" height="200px">
+              <table class="md-body-1">
+                <tr>
+                  <td width="45%">
+                  <div class="img-responsive" id="Equity_participation_anom"></div>
+                  </td>
+                  <td width="2%">
+                  </td>
+                  <td width="45%">
+                  <div class="img-responsive" id="Equity_fill_anom"></div>
+                  </td>
+                </tr>
+              </table>
+            </td>
+            </tr>
+            </table>
+            </md-content>
+          </md-tab>
+          <md-tab label="Rule 15c3-5 - MAR Anomalies"  md-on-select="getMar()">
+            <md-content class="md-padding">
+            <table class="md-body-1" width="100%">
+				<tr>
+					<td width="100%">
+						<div class="img-responsive" id="Equity_mar_anom"></div>
+					</td>
+				</tr>
+			</table>
+            </md-content>
+          </md-tab>
+          <md-tab label="Rule 200 - ShortSell Anomalies" md-on-select="getShortSell()">
+            <md-content class="md-padding">
+			<table class="md-body-1">
+				<tr>
+					<td>
+						<div class="img-responsive" id="Equity_short_sell_client_anom"></div>
+					</td>
+					<td>
+						<div class="img-responsive" id="Equity_short_sell_symbol_anom"></div>
+					</td>
+				</tr>
+			</table>
+            </md-content>
+          </md-tab>
+          <md-tab label="Rule 203 - Locate Anomalies" md-on-select="getLocateAnoms()">
+            <md-content class="md-padding">
+				<table class="md-body-1" width="100%">
+				<tr>
+					<td width="100%">
+						<div class="img-responsive" id="Equity_locate_anom"></div>
+					</td>
+				</tr>
+			</table>
+            </md-content>
+          </md-tab>
+          <md-tab label="OrderCapacity Anomalies" md-on-select="getOrderCapacityAnoms()">
+            <md-content class="md-padding">
+				<div>
+					  <div id="oCapacity" class="carousel slide" data-ride="carousel" data-interval="false">
+						<div class="carousel-inner">
+							<div class="item active">
+								<div class="paymentdetails">
+									<div id="ocapacity0" style="width:100%; height:100%;"></div>
+								</div>
+							</div>
+							<div class="item">
+								<div class="paymentdetails">
+									<div id="ocapacity1" style="width:100%; height:100%;"></div>
+								</div>
+							</div>
+							<div class="item">
+								<div class="paymentdetails">
+									<div id="ocapacity2" style="width:100%; height:100%;"></div>
+								</div>
+							</div>
+							<div class="item">
+								<div class="paymentdetails">
+									<div id="ocapacity3" style="width:100%; height:100%;"></div>
+								</div>
+							</div>
+							<div class="item">
+								<div class="paymentdetails">
+									<div id="ocapacity4" style="width:100%; height:100%;"></div>
+								</div>
+							</div>
+							<div class="item">
+								<div class="paymentdetails">
+									<div id="ocapacity5" style="width:100%; height:100%;"></div>
+								</div>
+							</div>
+						</div>
+						
+					</div>
+					<!-- Carousel controls -->
+						<a class="carousel-control left" href="homews#oCapacity" data-slide="prev">
+							<i class="controls fa fa-chevron-left" aria-hidden="true"></i>
+						</a>
+						<a class="carousel-control right" href="homews#oCapacity" data-slide="next">
+							<i class="controls fa fa-chevron-right" aria-hidden="true"></i>
+						</a>
+				</div>
+            </md-content>
+          </md-tab>
+          <md-tab label="Trader Issuetype Anomalies">
+            <md-content class="md-padding">
+            <p class="md-body-1"></p>
+            </md-content>
+          </md-tab>
+        </md-tabs>
+      </md-content>
+      </div>
+    </div>
+  </div>
+          </p>
+        </md-content>
+      </md-tab>
+      <md-tab label="Fraud Detection" md-on-select="fraudDetection()">
+        <md-content class="md-padding">
+
+          <p class="md-body-1">
+  <div class="container-fluid martm10">
+    <div class="row">
+      <div class="rmc-1 ">
+        <table style="width:100%">
+        <tr>
+        <td width="39%">
+        <button type="button" class="btn streambtn pull-left" ng-click="sendName();">Equity </button>
+        </td>
+        <td width="33%" align="center">
+		<div class="lastupdated">
+		<span class="historydate" ng-if="dateFilter!='NULL'">{{dateFilter| date:'MM/dd/yyyy'}}</span>
+		<span ng-if="dateFilter=='NULL'">{{lastTime}}</span>
+		</div>
+        </td>
+        <td width="27%">
+        <div class="btn-group pull-right">
+          <select class="form-control pull-right dropdown-toggle issuebtn select-hide" ng-model="Equity.issue" ng-click="getDivisionIssues('Equity')" ng-change="updateChart(Equity.issue,'Equity')">
+            <option class="select-dropdown" value='null' ng-selected=''>Issue Type</option>
+            <option class="select-dropdown" ng-repeat="issue in Equity.issueTypes" value="{{issue.issuetypes}}">{{issue.issuetypes}} </option>
+          </select>
+        </div>
+        </td>
+        </tr>
+        </table>
+      </div>
+      <div class="rmc-1 ">
+        <table style="width:100%" class="chartstable">
+        <tr>
+        <td width="4%" background="img/bluegradient.gif">
+        <div class="rotate">DIVISION</div>
+        </td>
+        <td width="96%">
+          <table style="width:100%">
+          <tr>
+          <td width="50%">
+          <div>
+          <span class="graphtitle col-md-6">Gross NV</span>
+          <span class="comments col-md-3">{{Equity.Equity_gross_nv}}</span>
+          </div>
+          </td>
+		  <td width="50%">
+          <div>
+          <span class="graphtitle col-md-6">Num Orders</span>
+          <span class="comments col-md-3">{{Equity.Equity_num_orders}}</span>
+          </div>
+          </td>
+          </tr>
+          <tr>
+          <td width="50%">
+          <div class="img-responsive" id="Equity_gross_nv_fraud"></div>
+          </td>
+		  <td width="50%">
+          <div class="img-responsive" id="Equity_num_orders_fraud"></div>
+          </td>
+          </tr>
+          </table>
+        </td>
+        </tr>
+        </table>
+      </div>
+      <div class="rmc-1 ">
+      <md-content>
+        <md-tabs class="md-primary">
+          <md-tab label="Spoofing & Layering" md-on-select="spoofingAnoms()"> 
+            <md-content class="md-padding">
+			    <div>
+					  <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="false">
+						<div class="carousel-inner">
+							<div class="item active">
+								<div class="paymentdetails">
+									<div id="spoofing0" style="width:100%; height:100%;"></div>
+								</div>
+							</div>
+							<div class="item">
+								<div class="paymentdetails">
+									<div id="spoofing1" style="width:100%; height:100%;"></div>
+								</div>
+							</div>
+							<div class="item">
+								<div class="paymentdetails">
+									<div id="spoofing2" style="width:100%; height:100%;"></div>
+								</div>
+							</div>
+							<div class="item">
+								<div class="paymentdetails">
+									<div id="spoofing3" style="width:100%; height:100%;"></div>
+								</div>
+							</div>
+							<div class="item">
+								<div class="paymentdetails">
+									<div id="spoofing4" style="width:100%; height:100%;"></div>
+								</div>
+							</div>
+							<div class="item">
+								<div class="paymentdetails">
+									<div id="spoofing5" style="width:100%; height:100%;"></div>
+								</div>
+							</div>
+							<div class="item">
+								<div class="paymentdetails">
+									<div id="spoofing6" style="width:100%; height:100%;"></div>
+								</div>
+							</div>
+						</div>
+						<!-- Carousel controls -->
+						<a class="carousel-control left" href="homews#myCarousel" data-slide="prev">
+							<i class="controls fa fa-chevron-left" aria-hidden="true"></i>
+						</a>
+						<a class="carousel-control right" href="homews#myCarousel" data-slide="next">
+							<i class="controls fa fa-chevron-right" aria-hidden="true"></i>
+						</a>
+					</div>
+				</div>
+            </md-content>
+          </md-tab>
+          <md-tab label="Front Running" md-on-select="frontrunningAnoms()">
+            <md-content class="md-padding">
+				<div>
+					  <div id="frontrun" class="carousel slide" data-ride="carousel" data-interval="false">
+						<div class="carousel-inner">
+							<div class="item active">
+								<div class="paymentdetails">
+									<div id="frontrunning0" style="width:100%; height:100%;"></div>
+								</div>
+							</div>
+							<div class="item">
+								<div class="paymentdetails">
+									<div id="frontrunning1" style="width:100%; height:100%;"></div>
+								</div>
+							</div>
+						</div>
+						
+					</div>
+					<!-- Carousel controls -->
+						<a class="carousel-control left" href="homews#frontrun" data-slide="prev">
+							<i class="controls fa fa-chevron-left" aria-hidden="true"></i>
+						</a>
+						<a class="carousel-control right" href="homews#frontrun" data-slide="next">
+							<i class="controls fa fa-chevron-right" aria-hidden="true"></i>
+						</a>
+				</div>
+            </md-content>
+          </md-tab>
+          <md-tab label="Trader Behavior Anomaly">
+            <md-content class="md-padding">
+            <p class="md-body-1"></p>
+            </md-content>
+          </md-tab>
+          <md-tab label="Quote Stuffing">
+            <md-content class="md-padding">
+            <p class="md-body-1"></p>
+            </md-content>
+          </md-tab>
+          <md-tab label="Marking the Close">
+            <md-content class="md-padding">
+            <p class="md-body-1"></p>
+            </md-content>
+          </md-tab>
+          <md-tab label="Wash Trades">
+            <md-content class="md-padding">
+            <p class="md-body-1"></p>
+            </md-content>
+          </md-tab>
+          <md-tab label="Order Cancel Ratio">
+            <md-content class="md-padding">
+            <p class="md-body-1"></p>
+            </md-content>
+          </md-tab>
+        </md-tabs>
+      </md-content>
+      </div>
+    </div>
+  </div>
+          </p>
+        </md-content>
+      </md-tab>
+
+      </md-tab>
+      <md-tab label="2nd Line of Defense" md-on-select="backTest()">
+        <md-content class="md-padding">
+			<div class="col-md-12">
+			 <div class="col-md-offset-3 col-md-6">
+			 <form class="que">
+				<div class="form-group formheight mart75">
+				  <label for="ques" class="label">Select Application</label>
+				  <select class="form-control options" id="ques" ng-model="backtest.appName">
+					<option style="color: black;" value="" selected>---select application---</option>
+					<option style="color: black;" value="app1">App1</option>
+					<option style="color: black;" value="app2">App2</option>
+					<option style="color: black;" value="app3">App3</option>
+					<option style="color: black;" value="app4">App4</option>
+				  </select>
+				  </div>
+					<button type="submit" class="btn btn-default" id="submit-btn">Next>></button>
+			</form>
+			<div class="rangepicker">
+			<p></p>
+			<label class="label">Choose Backtest dates</label>
+
+			<multiple-date-picker sunday-first-day="false" ng-model="backtest.datesArray" highlight-days="highlightDays" disable-days-after="today"></multiple-date-picker>
+			<!-- <input type="text" name="daterange" class="daterangecalender form-control" value="01/01/2018 - 01/15/2018" /> -->
+			<div ng-repeat="date in backtest.datesArray">{{date}}</div> 
+			 <button type="submit" class="btn btn-default mart40" id="datesumbit-btn" ng-click="checkBackTest()">Next>></button>
+			</div>
+			<div class="email">
+			<div class="form-group formhight mart90">
+			<label class="rangelabel">Thank you..We will generate backtest and Notify you via email.</label>
+			<!-- <input type="email" class="emailbox form-control" /> -->
+			 </div>
+			 <!-- <button type="submit" class="btn email-btn" id="genReport">Submit</button> -->
+
+			</div>
+				
+			</div>
+			<div class="report">
+				<p class="col-md-12 " ng-if="existed.length>0">	
+					We already generated back test for following
+						<ul>
+							<li ng-repeat="exist in existed">{{exist}}</li>
+						</ul>
+							
+				</p>
+				<p class="col-md-12" ng-if="notExisted.length>0">	
+					We will generate back test for following and notify you via email.
+						<ul>
+							<li ng-repeat="noExist in notExisted">{{noExist}}</li>
+						</ul>
+							
+				</p>
+				<div class="col-md-12">		
+					<table class="table table-responsive">
+						<tr>
+							<td class="col-md-12">
+								<div id="single_order"></div>
+							</td>
+							<td class="col-md-12">
+								<div id="aggregate"></div>
+							</td>
+						</tr>
+						<tr>
+							<td class="col-md-12">
+								<div id="compliance"></div>
+							</td>
+						</tr>
+					</table>
+				</div>
+					
+			</div>
+
+			</div>
+        </md-content>
+      </md-tab>
+    </md-tabs>
+  </md-content>
+</div>
+  <!-- Tabs End-->
+  
+  
+  
+  
+
+</div>
+<!-- /#tenjinpage-wrapper --> 
+<!--<div class="footer">
+  <div ng-include="'views/footer.html'"></div>
+</div>--> 
+<!-- /#wrapper --> 
+<script>
+$('.dropdown-menu a').on('click', function(){    
+    $(this).parent().parent().prev().html($(this).html() + '<span class="caret"></span>');    
+})
+</script> 
+<!-- Custom Theme JavaScript --> 
+<script src="js/sb-admin-2.js"></script> 

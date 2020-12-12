@@ -1,0 +1,87 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Eagleye</title>
+<!-- Meta-Tags -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="utf-8">
+<meta name="keywords" content="">
+
+<!-- //Meta-Tags -->
+<!-- Stylesheets -->
+<link href="css/login.css" rel='stylesheet' type='text/css' />
+<!--// Stylesheets -->
+</head>
+
+<body>
+	<!--728x90-->
+
+	<div class="loginpage">
+		<div class="img-width">
+			<div class="eyeimg marr-55">
+				<img src="img/bg.jpg" class="img-responsive">
+			</div>
+			<!--<div class="eyeinfo marr-15">
+	<p class="text-big">
+	Lorem ipsum dolor sit amet, consectetur adipiscing elit
+	</p>
+	</div>-->
+		</div>
+		<!--728x90-->
+		<div class="eals-login box box-big col-md-5 mart-100">
+			<div class="eagleye marl-90">
+				<img class="responsive" src="img/eagleeye.png" />
+			</div>
+			<!-- form starts here -->
+			<span class="error">{{error}}</span>
+			<form name="form" ng-hide='showCompany' class="padl-90 padt-30"
+				ng-submit="showLogin()">
+				<div class="agile-field-txt">
+					<label> Company Name</label> <input type="text" name="name"
+						placeholder="Enter Company Name" required=""
+						ng-model="user.company" capitalize />
+				</div>
+				<input type="submit" value="Submit">
+			</form>
+			<form name="form" class="padl-90 padt-30" ng-hide='!showCompany'
+				ng-submit="login()">
+
+				<div class="agile-field-txt">
+					<label> Email</label> <input type="text" name="name"
+						placeholder="Enter Email" required="" ng-model="user.email" />
+				</div>
+				<div class="agile-field-txt">
+					<label> password</label> <input type="password" name="password"
+						placeholder="Enter Password" required="" ng-model="user.password"
+						id="password" />
+					<div class="agile_label">
+						<input id="check3" name="check3" type="checkbox"
+							value="show password" onclick="myFunction()"> <label
+							class="check" for="check3">Show password</label>
+					</div>
+					<div class="agile-right">
+						<a href="#">forgot password?</a>
+					</div>
+				</div>
+				<!-- script for show password -->
+				<script>
+				function myFunction() {
+					var x = document.getElementById("password");
+					if (x.type === "password") {
+						x.type = "text";
+					} else {
+						x.type = "password";
+					}
+				}
+			</script>
+				<!-- //end script -->
+				<input type="submit" value="SIGN IN">
+			</form>
+		</div>
+		<!-- //form ends here -->
+
+	</div>
+
+</body>
+</html>

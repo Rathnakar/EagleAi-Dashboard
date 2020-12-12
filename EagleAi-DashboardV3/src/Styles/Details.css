@@ -1,0 +1,145 @@
+.pull-right {
+  float: right;
+}
+.mart5 {
+  margin-top: 5px;
+}
+.mart10 {
+  margin-top: 10px;
+}
+.mart15 {
+  margin-top: 15px;
+}
+.bg-color {
+  background-color: #f4fbfe;
+}
+.footer-bg-color {
+}
+.left-panel,
+.right-panel {
+  height: 39vh;
+  overflow: auto;
+}
+.graph-border {
+	border: 3px solid #f2f7fa;
+	border-radius: 5px;
+}
+.modify-btn {
+  padding: 0.4rem 1rem;
+  margin: 4px;
+  float: right;
+}
+.dot-seperator {
+  border-right: 1px dotted black;
+}
+.mtb-12 {
+  margin: 12px 0px;
+}
+.ptb-8 {
+  padding: 8px 0px;
+}
+.details-row {
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: 0;
+  margin-left: 0;
+}
+.question {
+  background-color: #f7f6f8;
+}
+.asset-table {
+  height: 60%;
+  overflow: auto;
+}
+.notes-table {
+  overflow: auto;
+  height: 30%;
+}
+.dot-seperator-middle {
+  border-bottom: 1px dotted black;
+  padding-bottom: 10px;
+}
+.no-margin {
+  margin-bottom: 0px;
+}
+.fd-height {
+  height: 83vh;
+  overflow-y: auto;
+}
+.anomaly {
+  padding:5px;
+  border-radius: 50%;
+  background-color: #ae0001;
+  height: 5px !important;
+  width: 5px !important;
+  display: inline-block;
+  max-width: 3% !important;
+  margin: 6px 0px 0 7px;
+}
+.db-card-title .col-10{
+	padding-right: 7px;
+	padding-left: 7px;
+}
+.marr10 {
+  margin-right: 10px;
+}
+.marl10 {
+  margin-left: 10px;
+}
+.martb20{
+  margin: 20px 0px;
+}
+.sgrph-border {
+	border:2px solid #eceff5;
+	border-radius:3px;
+}
+.sec-heading{
+	text-transform:uppercase;
+	color:rgba(33,51,109);
+	border-bottom:1px solid #eceff5;
+	padding-bottom:10px;
+}
+.trend-heading{
+	text-transform:uppercase;
+	color:rgba(33,51,109);
+	margin-top: 0.5rem;
+}
+.evnttpe{
+	color:#0056b3;
+	font-weight:bold;
+}
+.tmseries-heading{
+	text-transform:uppercase;
+	padding:9px 9px 0px 9px;
+}
+.tmseries-subheading{
+	padding-left:9px;
+	font-size:12px;
+	text-transform:uppercase;
+	
+}
+.titles{
+	border-bottom:1px solid #eceff5;
+	padding-bottom:10px;
+}
+.pie-title{
+	font-size:1vw;
+	color:#3b3b3b;
+	text-transform:uppercase;
+}
+.col-4{
+	flex: 0 0 32.322222% !important;
+	max-width: 32.322222% !important;
+}
+.marlr5{
+	margin-left:7px;
+	margin-right:5px;
+	margin-bottom: 10px;
+}
+.col-2{
+	flex: 0 0 16.0% !important;
+	max-width: 16.0% !important;
+}
+.marl7{
+	margin-left:7px;
+}

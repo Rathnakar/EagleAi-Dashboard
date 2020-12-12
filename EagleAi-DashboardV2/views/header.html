@@ -1,0 +1,54 @@
+
+<nav class="navbar navbar-default navbar-static-top navbar-thead"
+	role="navigation" style="margin-bottom: 0">
+	<button type="button" class="navbar-toggle" data-toggle="collapse"
+		data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span>
+		<span class="icon-bar"></span> <span class="icon-bar"></span>
+	</button>
+	<a class="navbar-brand col-md-2" href="#/homews"><img
+		src="img/eagleeyewhite.png" width="290px" height="50px" /></a>
+	<!-- /.navbar-header -->
+	<div class="pull-right">
+		<ul class="headermenu" style="color: #fff">
+			<li>
+				<!--<input type="hidden" uib-datepicker-popup="{{format}}" ng-model="dt" is-open="calendar.opened" datepicker-options="options" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" ng-change="updateData(dt)"/>-->
+				<span class=""><a ng-click=""><i
+						class="icon fa fa-calendar marr5"></i>Backtest</a></span>
+			</li>
+			<li><input type="hidden" uib-datepicker-popup="{{format}}"
+				ng-model="dt" is-open="calendar.opened" datepicker-options="options"
+				ng-required="true" close-text="Close"
+				alt-input-formats="altInputFormats" ng-change="updateData(dt)" /> <span
+				class=""><a ng-click="openCalendar()"><i
+						class="icon fa fa-calendar marr5"></i>Historical</a></span></li>
+			<li class="dropdown"><a data-toggle="dropdown"
+				ng-click="closeCalendar()">Reports<i
+					class="fa fa-caret-down marl5"></i></a>
+				<ul class="dropdown-menu reports-dropdown">
+					<li><a>Backtest Execution Strategy</a></li>
+					<li><a>Backtest Anomaly Detector</a></li>
+					<li><a>Historic View</a></li>
+				</ul></li>
+			<li><a href="#/homews">{{user.firstName}}</a></li>
+			<li><span class="separator"> | </span></li>
+			<li><a href="#/settings"><i class="icon fa fa-cog marr5"></i></a></li>
+			<li><span class="separator"> | </span></li>
+			<li><a href="#/login">Logout</a></li>
+			<li><span class="separator"> | </span></li>
+			<li class="icon dropdown"><i class="fa fa-bell dropdown-toggle"
+				data-toggle="dropdown" ng-click="closeCalendar()"><span
+					class="superscript" ng-if="alertCount!=0"> <span
+						ng-if="alertCount<=9" class="onine">{{alertCount}}</span> <span
+						ng-if="alertCount<=99 && alertCount>9" class="dnine">{{alertCount}}</span>
+						<span ng-if="alertCount>99" class="tnine">{{alertCount}}</span>
+				</span></i>
+				<ul class="dropdown-menu alertsdropdown" ng-if="alertCount!=0">
+					<li ng-repeat="alert in alerts| orderBy: '-time'"><a
+						ng-click="getInfo(alert,'alert')">{{alert.description}}</a></li>
+				</ul></li>
+			<li class="icon" style="margin-top: 7px;"><i
+				class="fa fa-caret-down"></i></li>
+		</ul>
+	</div>
+</nav>

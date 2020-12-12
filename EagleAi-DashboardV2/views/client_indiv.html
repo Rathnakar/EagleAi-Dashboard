@@ -1,0 +1,233 @@
+<div class="modal-header">
+	<button class="btn btn-primary close-btn" ng-click="ok()">X</button>
+	<div class="rmc-12 headerbg borderright">
+		<table style="width: 100%">
+			<tr>
+				<td width="33%">
+					<button type="button" class="btn pull-left streambtn col-md-4">{{name}}</button>
+				</td>
+				<td width="33%" align="center">
+					<div class="col-md-4 lastupdated">{{indivLastTime}}</div>
+				</td>
+			</tr>
+		</table>
+	</div>
+</div>
+<div class="modal-body">
+	<div class="rmc-12 marb10" id="container">
+		<table style="width: 100%" class="chartstable">
+			<tr>
+				<td width="33%">
+					<table style="width: 100%">
+						<tr>
+							<td width="100%">
+								<div>
+									<span class="graphtitle  col-md-5">Gross NV</span> <span
+										class="comments  col-md-7">{{Individual.gross_nv}}</span>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td width="100%">
+								<!-- <div class="img-responsive" id="pie_chart1"></div> -->
+								<div class="img-responsive" id="gross_nv"></div>
+							</td>
+						</tr>
+					</table>
+				</td>
+				<td width="33%">
+					<table style="width: 100%">
+						<tr>
+							<td width="100%">
+								<div>
+									<span class="graphtitle  col-md-5">Net NV</span> <span
+										class="comments  col-md-7">{{Individual.net_nv}}</span>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td width="100%">
+								<div class="img-responsive" id="net_nv"></div>
+							</td>
+						</tr>
+					</table>
+				</td>
+				<td width="33%">
+					<table style="width: 100%">
+						<tr>
+							<td width="100%">
+								<div>
+									<span class="graphtitle  col-md-5">Num Orders</span> <span
+										class="comments  col-md-7">{{Individual.num_orders}}</span>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td width="100%">
+								<div class="img-responsive" id="num_orders"></div>
+							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+		</table>
+	</div>
+
+	<div class="rmc-12" id="container">
+		<div class="btn-group" ng-if="participation.length>0">
+			<label class="btn btn-primary" ng-model="radioModel"
+				uib-btn-radio="'Gross Notionalvalue'"
+				ng-click="updatePie('Gross Notionalvalue')">Gross
+				Notionalvalue</label> <label class="btn btn-primary" ng-model="radioModel"
+				uib-btn-radio="'Net Notionalvalue'"
+				ng-click="updatePie('Net Notionalvalue')">Net Notionalvalue</label>
+			<label class="btn btn-primary" ng-model="radioModel"
+				uib-btn-radio="'Num Orders'" ng-click="updatePie('Num Orders')">Num
+				Orders</label> <label class="pie-times">
+				<div>Start: {{start}}</div>
+				<div>End: {{end}}</div>
+			</label>
+		</div>
+
+		<div class="mart10">
+			<table style="width: 100%" class="chartstable">
+				<tr>
+					<td width="50%">
+						<div class="img-responsive" id="pie1"></div>
+					</td>
+					<td width="50%">
+						<div class="img-responsive" id="pie2"></div>
+					</td>
+				</tr>
+				<tr>
+					<td width="50%">
+						<div class="img-responsive" id="pie3"></div>
+					</td>
+					<td width="50%">
+						<div class="img-responsive" id="pie4"></div>
+					</td>
+				</tr>
+				<tr>
+					<td width="50%">
+						<div class="img-responsive" id="pie5"></div>
+					</td>
+					<td width="50%">
+						<div class="img-responsive" id="pie6"></div>
+					</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+	<div class="rmc-12 marb10" id="container" ng-if="topOrders.length>0">
+		<span class="graphtitle  col-md-5">Top Orders</span>
+		<table class="table-responsive table-bordered toporders scrollbar"
+			width="100%">
+			<thead>
+				<tr>
+					<th>Currency</th>
+					<th>Notionalvalue</th>
+					<th>Division</th>
+					<th>Clientid</th>
+					<th>Symbol</th>
+					<th>Qty</th>
+					<th>Price</th>
+					<th>Transacttime</th>
+					<th>Orderid</th>
+					<th>Versionid</th>
+					<th>Appl</th>
+					<th>Subappl</th>
+					<th>Omprocessid</th>
+					<th>Desk</th>
+					<th>Salesownerid</th>
+					<th>Traderid</th>
+					<th>Clienttraderid</th>
+					<th>Accountid</th>
+					<th>Issuetype</th>
+					<th>Exchange</th>
+					<th>Execbroker</th>
+					<th>Clientorderid</th>
+					<th>Parentorderid</th>
+					<th>Ordstatus</th>
+					<th>Tradedate</th>
+					<th>Timeinforce</th>
+					<th>Capacity</th>
+					<th>Instruction</th>
+					<th>Side</th>
+					<th>Locatereqd</th>
+					<th>Locateid</th>
+					<th>Ordtype</th>
+					<th>Leavesqty</th>
+					<th>Fillqty</th>
+					<th>Avg.price</th>
+					<th>Putorcall</th>
+					<th>Strikeprice</th>
+					<th>Openclose</th>
+					<th>Delta</th>
+					<th>Contractmultiplier</th>
+					<th>Quoteid</th>
+					<th>Adv</th>
+					<th>Ref.Price</th>
+					<th>Priceaway</th>
+					<th>Liquidity</th>
+					<th>Arrivalprice</th>
+					<th>Loc</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="order in topOrders">
+					<td>{{order.currency}}</td>
+					<td>{{order.notionalvalue}}</td>
+					<td>{{order.division}}</td>
+					<td>{{order.clientid}}</td>
+					<td>{{order.symbol}}</td>
+					<td>{{order.qty}}</td>
+					<td>{{order.price}}</td>
+					<td>{{order.transacttime}}</td>
+					<td>{{order.orderid}}</td>
+					<td>{{order.versionid}}</td>
+					<td>{{order.appl}}</td>
+					<td>{{order.subappl}}</td>
+					<td>{{order.omprocessid}}</td>
+					<td>{{order.desk}}</td>
+					<td>{{order.salesownerid}}</td>
+					<td>{{order.traderid}}</td>
+					<td>{{order.clienttraderid}}</td>
+					<td>{{order.accountid}}</td>
+					<td>{{order.issuetype}}</td>
+					<td>{{order.exchange}}</td>
+					<td>{{order.execbroker}}</td>
+					<td>{{order.clientorderid}}</td>
+					<td>{{order.parentorderid}}</td>
+					<td>{{order.ordstatus}}</td>
+					<td>{{order.tradedate}}</td>
+					<td>{{order.timeinforce}}</td>
+					<td>{{order.capacity}}</td>
+					<td>{{order.instruction}}</td>
+					<td>{{order.side}}</td>
+					<td>{{order.locatereqd}}</td>
+					<td>{{order.locateid}}</td>
+					<td>{{order.ordtype}}</td>
+					<td>{{order.leavesqty}}</td>
+					<td>{{order.fillqty}}</td>
+					<td>{{order.avgprice}}</td>
+					<td>{{order.putorcall}}</td>
+					<td>{{order.strikeprice}}</td>
+					<td>{{order.openclose}}</td>
+					<td>{{order.delta}}</td>
+					<td>{{order.contractmultiplier}}</td>
+					<td>{{order.quoteid}}</td>
+					<td>{{order.adv}}</td>
+					<td>{{order.ref_price}}</td>
+					<td>{{order.priceaway}}</td>
+					<td>{{order.liquidity}}</td>
+					<td>{{order.arrivalprice}}</td>
+					<td>{{order.loc}}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+
+	<div class="modal-footer">
+		<button class="btn btn-primary" ng-click="ok()">Close</button>
+	</div>

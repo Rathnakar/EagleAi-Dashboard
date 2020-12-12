@@ -1,0 +1,348 @@
+<div id="wrapper" ng-app="app">
+	<!-- Navigation -->
+
+
+
+	<div ng-include="'views/header.html'"></div>
+
+	<div class="">
+		<div class="col-md-12">
+			<uib-tabset active="activePill" vertical="true" type="tabs">
+
+
+			<uib-tab> <uib-tab-heading> <span>Data
+				Sources</span> </uib-tab-heading>
+
+			<div class="col-md-10 Datasources mart10">
+				<div class="col-md-3">
+					<div class="secbg-1">
+						<form>
+							<div class="radio">
+								<label class="rcon">Transaction Logs <input type="radio"
+									ng-model="datasource.source" value="logs" name="optradio"><span
+									class="checkmark"></span></label>
+							</div>
+							<div class="radio">
+								<label class="rcon">Database <input type="radio"
+									ng-model="datasource.source" value="db" name="optradio"><span
+									class="checkmark"></span></label>
+							</div>
+							<div class="radio">
+								<label class="rcon">Stream <input type="radio"
+									ng-model="datasource.source" value="stream" name="optradio"><span
+									class="checkmark"></span></label>
+							</div>
+						</form>
+					</div>
+				</div>
+				<div class="col-md-9">
+
+					<div class="thirdcolumn secbg-2" ng-if="datasource.source=='logs'">
+						<div class="form-group logs-form">
+							<label class="label-1">File System</label> <input type="text"
+								class="form-input-text logpath" ng-model="datasource.logPath"
+								name="logpath" placeholder="Log Path" />
+						</div>
+
+						<button class="btn btn-primary" ng-click='addLogs()'
+							ng-class='buttonClass' ng-style='buttonCssStyle'>Add</button>
+
+						<div class="rmc-12 marb10 mart10" ng-if="logs.length>0">
+							<table
+								class="table-responsive table-bordered logpathtable model-list"
+								width="100%">
+								<tbody>
+									<tr ng-repeat="log in logs">
+										<td style="width: 5%; text-align: center"><input
+											type="checkbox" ng-model="log.cid"
+											ng-click="checkLogs(log.cid,log)"></td>
+										<td>{{log.path}}</td>
+									</tr>
+								</tbody>
+							</table>
+
+							<button class="btn btn-danger mart10"
+								ng-if="checkedLogs.length>0" ng-click='removeLog()'
+								ng-class='buttonClass' ng-style='buttonCssStyle'>Remove</button>
+						</div>
+					</div>
+
+
+					<div class="thirdcolumn secbg-2" ng-if="datasource.source=='db'">
+						<div class="db-form">
+							<div class="form-group col-md-4">
+								<label class="label-1">Host</label> <input
+									class="form-input-text col-md-11" type="text"
+									ng-model="datasource.db.host" name="Host" placeholder="Host">
+							</div>
+							<div class="form-group col-md-4">
+								<label class="label-1">Port</label> <input
+									class="form-input-text col-md-11" type="number"
+									ng-model="datasource.db.port" name="Port" placeholder="Port">
+							</div>
+							<div class="form-group col-md-4">
+								<label class="label-1">DB Name</label> <input type="text"
+									class="form-input-text col-md-11"
+									ng-model="datasource.db.dbName" name="DB Name"
+									placeholder="DB Name">
+							</div>
+							<div class="form-group col-md-4">
+								<label class="label-1">Username</label> <input type="text"
+									class="form-input-text col-md-11"
+									ng-model="datasource.db.userName" name="Username"
+									placeholder="Username">
+							</div>
+							<div class="form-group col-md-4">
+								<label class="label-1">Password</label> <input type="password"
+									class="form-input-text col-md-11"
+									ng-model="datasource.db.password" name="password"
+									placeholder="Password">
+							</div>
+
+							<div class="form-group col-md-4">
+								<label class="label-1">DB Read Query</label> <input type="text"
+									class="form-input-text col-md-11"
+									ng-model="datasource.db.readQuery" name="Read Query"
+									placeholder="DB Read Query">
+							</div>
+							<br />
+							<button class="btn btn-primary" ng-click='addDbs()'
+								ng-class='buttonClass' ng-style='buttonCssStyle'>Add</button>
+						</div>
+						<div class="rmc-12 marb10" ng-if="dbs.length>0">
+							<h4 class="col-md-5">Query List</h4>
+							<table
+								class="table-responsive table-bordered logpathtable model-list"
+								width="100%">
+								<tbody>
+									<tr ng-repeat="db in dbs">
+										<td style="width: 5%; text-align: center"><input
+											type="checkbox" ng-model="db.cid"
+											ng-click="checkDbs(db.cid,db)"></td>
+										<td>{{db.readQuery}}</td>
+									</tr>
+								</tbody>
+							</table>
+
+							<button class="btn btn-danger mart10" ng-if="checkedDbs.length>0"
+								ng-click='removeDb()' ng-class='buttonClass'
+								ng-style='buttonCssStyle'>Remove</button>
+						</div>
+					</div>
+
+					<div class="thirdcolumn secbg-2"
+						ng-if="datasource.source=='stream'">
+						<div class="stream-form">
+							<div class="form-group col-md-4">
+								<label class="label-1">Host</label> <input type="text"
+									class="form-input-text col-md-11"
+									ng-model="datasource.stream.host" name="Host"
+									placeholder="Host">
+							</div>
+							<div class="form-group col-md-4">
+								<label class="label-1">Port</label> <input type="number"
+									class="form-input-text col-md-11"
+									ng-model="datasource.stream.port" name="Port"
+									placeholder="Port">
+							</div>
+
+							<div class="form-group col-md-4">
+								<label class="label-1">Topic</label> <input type="text"
+									class="form-input-text col-md-11"
+									ng-model="datasource.stream.topic" name="topic"
+									placeholder="Topic">
+							</div>
+							<button class="btn btn-primary" ng-click='addStreams()'
+								ng-class='buttonClass' ng-style='buttonCssStyle'>Add</button>
+						</div>
+						<div class="rmc-12 marb10" ng-if="streams.length>0">
+							<h4 class="col-md-5">Query List</h4>
+							<table
+								class="table-responsive table-bordered logpathtable model-list"
+								width="100%">
+								<tbody>
+									<tr ng-repeat="stream in streams">
+										<td style="width: 5%; text-align: center"><input
+											type="checkbox" ng-model="stream.cid"
+											ng-click="checkStreams(stream.cid,stream)"></td>
+										<td>{{stream.topic}}</td>
+									</tr>
+								</tbody>
+							</table>
+
+							<button class="btn btn-danger mart10"
+								ng-if="checkedStreams.length>0" ng-click='removeStream()'
+								ng-class='buttonClass' ng-style='buttonCssStyle'>Remove</button>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			</uib-tab> <uib-tab> <uib-tab-heading> <span>Model
+				Setup</span> </uib-tab-heading>
+			<div class="">
+				<div class="model-setup-group secbg-3 mart10 col-md-10">
+					<div class="select-input-list col-md-6">
+						<h4 class="label-1">Model Inputs</h4>
+						<select multiple="true" ng-model="selected"
+							ng-options="item.get_model_inputs for item in inputs| orderBy : 'get_model_inputs' "
+							class="col-md-5 mart10"></select>
+						<div class='btn-group-vertical col-md-1 mart10'>
+							<button ng-click='moveItem(selected, inputs, selectedInput)'
+								ng-class='buttonClass' ng-style='buttonCssStyle'
+								class='btn arrowbtn'>
+								<i class='fa  fa-angle-double-right'></i>
+							</button>
+							<button ng-click='moveItem(available, selectedInput,inputs)'
+								ng-class='buttonClass' ng-style='buttonCssStyle'
+								class='btn arrowbtn'>
+								<i class='fa  fa-angle-double-left'></i>
+							</button>
+							<!-- <button ng-click='moveAll(inputs,selectedInput )' ng-class='buttonClass' ng-style='buttonCssStyle' class='btn'><i class='fa fa-angle-double-right'></i></button> -->
+							<!-- <button ng-click='moveAll(selectedInput,inputs )' ng-class='buttonClass' ng-style='buttonCssStyle' class='btn'><i class='fa fa-angle-double-left'></i></button> -->
+						</div>
+						<select multiple="true" ng-model="available"
+							ng-options="item.get_model_inputs for item in selectedInput| orderBy : 'get_model_inputs'"
+							class="col-md-5 mart10"></select>
+					</div>
+
+					<div class="select-output-list col-md-6">
+						<h4 class="label-1">Model Outputs</h4>
+						<select multiple="true" ng-model="selected"
+							ng-options="item.get_model_outputs for item in outputs| orderBy : 'get_model_outputs' "
+							class="col-md-5 mart10"></select>
+						<div class="btn-group-vertical col-md-1 mart10">
+							<button ng-click='moveItem(selected, outputs, selectedOutput)'
+								ng-class='buttonClass' ng-style='buttonCssStyle'
+								class='btn arrowbtn'>
+								<i class='fa  fa-angle-double-right'></i>
+							</button>
+							<button ng-click='moveItem(available, selectedOutput,outputs)'
+								ng-class='buttonClass' ng-style='buttonCssStyle'
+								class='btn arrowbtn'>
+								<i class='fa  fa-angle-double-left'></i>
+							</button>
+							<!-- <button ng-click='moveAll(outputs,selectedOutput )' ng-class='buttonClass' ng-style='buttonCssStyle' class='btn'><i class='fa fa-angle-double-right'></i></button> -->
+							<!-- <button ng-click='moveAll(selectedOutput,outputs )' ng-class='buttonClass' ng-style='buttonCssStyle' class='btn'><i class='fa fa-angle-double-left'></i></button> -->
+						</div>
+						<select multiple="true" ng-model="available"
+							ng-options="item.get_model_outputs for item in selectedOutput| orderBy : 'get_model_outputs'"
+							class="col-md-5 mart10"></select>
+					</div>
+					<div class="col-md-11">
+						<button class="btn btn-primary col-md-1 mart20"
+							ng-click='addModel()' ng-class='buttonClass'
+							ng-style='buttonCssStyle'>Add</button>
+					</div>
+					<div class="marb10" ng-if="models.length>0">
+						<div class="col-md-12 mart20">
+							<h4 class="col-md-5 marb10">Registered Models</h4>
+							<table
+								class="table-responsive table-bordered logpathtable model-list"
+								width="100%">
+								<thead>
+									<tr>
+										<th style="width: 5%; text-align: center"></th>
+										<th>Inputs</th>
+										<th>Outputs</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr ng-repeat="model in models">
+										<td style="width: 5%; text-align: center"><input
+											type="checkbox" ng-model="model.cid"
+											ng-click="checkModel(model.cid,model)"></td>
+										<td>{{model.inputs| join:', ':'get_model_inputs'}}</td>
+										<td>{{model.outputs| join:', ':'get_model_outputs'}}</td>
+									</tr>
+								</tbody>
+							</table>
+
+							<button class="btn btn-danger mart10"
+								ng-if="checkedModels.length>0" ng-click='remove()'
+								ng-class='buttonClass' ng-style='buttonCssStyle'>Remove</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			</uib-tab> <uib-tab> <uib-tab-heading> <span>Alert
+				Setup</span> </uib-tab-heading>
+			<div class="">
+				<div
+					class="select-input-list alertsetup secbg-3 mart10 col-md-10 mart10">
+					<div class="form-group col-md-3">
+						<label class="label-1">Model Input</label> <select
+							ng-model="alert.input" class="form-input-text col-md-11">
+							<option value="" selected>----Model Input----</option>
+							<option
+								ng-repeat="item in alertInputs| orderBy : 'get_model_inputs'"
+								value="{{item.get_model_inputs}}">{{item.get_model_inputs}}</option>
+						</select>
+					</div>
+
+					<div class="form-group col-md-3">
+						<label class="label-1">Model value</label> <input
+							class="form-input-text col-md-11" type="text"
+							ng-model="alert.value" name="modelValue"
+							placeholder="Model Value">
+					</div>
+
+					<div class="form-group col-md-3">
+						<label class="label-1">Alert email group</label> <input
+							class="form-input-text col-md-11" type="text"
+							ng-model="alert.email" name="email"
+							placeholder="Alert email group">
+					</div>
+
+					<div class="form-group col-md-3">
+						<label class="label-1">Alert text group</label> <input
+							class="form-input-text col-md-11" type="text"
+							ng-model="alert.text" name="text" placeholder="Alert text group">
+					</div>
+					<div class="alertsetup col-md-10">
+						<button class="btn btn-primary  col-md-1 " ng-click='addAlert()'
+							ng-class='buttonClass' ng-style='buttonCssStyle'>Add</button>
+					</div>
+
+
+					<div class="alertsetup col-md-12 marb10" ng-if="alerts.length>0">
+						<div class="mart20 ">
+							<h4 class="col-md-5 marb10">Registered Alert groups</h4>
+							<table
+								class="table-responsive table-bordered logpathtable model-list"
+								width="100%">
+								<thead>
+									<tr>
+										<th style="width: 5%; text-align: center"></th>
+										<th>Model Input</th>
+										<th>Model value</th>
+										<th>Alerting email group</th>
+										<th>Alerting text group</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr ng-repeat="alert in alerts">
+										<td style="width: 5%; text-align: center"><input
+											type="checkbox" ng-model="alert.cid"
+											ng-click="checkAlerts(alert.cid,alert)"></td>
+										<td>{{alert.input}}</td>
+										<td>{{alert.value}}</td>
+										<td>{{alert.email}}</td>
+										<td>{{alert.text}}</td>
+									</tr>
+								</tbody>
+							</table>
+
+							<button class="btn btn-danger mart10"
+								ng-if="checkedAlerts.length>0" ng-click='removeAlert()'
+								ng-class='buttonClass' ng-style='buttonCssStyle'>Remove</button>
+						</div>
+					</div>
+				</div>
+
+			</div>
+			</uib-tab> </uib-tabset>
+
+		</div>
+	</div>
+</div>
