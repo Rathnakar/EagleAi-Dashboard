@@ -22,7 +22,13 @@ export default class Anomalies extends Component {
         { name: "Issue Type Anomaly", id: 5 },
         { name: "Exchange Anomaly", id: 6 },
         { name: "Exec Broker Anomaly", id: 7 },
-        { name: "Duplicate Order Anomaly", id: 8 }
+        { name: "Duplicate Order Anomaly", id: 8 },
+        { name: "Spoofing Anomaly", id: 14 },
+        { name: "Market Data Correlation  Anomaly", id: 15 }, 
+        { name: "Market Data Price  Anomaly", id: 16 }, 
+        { name: "Market Data Volume  Anomaly", id: 17 }, 
+        { name: "Market Data Volatility  Anomaly", id: 18 }, 
+        { name: "Market Data Options Activity  Anomaly", id: 19 }
       ]
     };
   }
